@@ -6,4 +6,5 @@ package com.brweber2;
  */
 public interface CheckedType {
 
+    boolean ok( CheckedType type );
 }

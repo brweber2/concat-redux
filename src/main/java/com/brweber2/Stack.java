@@ -11,6 +11,8 @@ public class Stack {
     
     private List objects = new ArrayList();
     
+    // todo add named objects?
+    
     public void push( Object object )
     {
         objects.add(object);

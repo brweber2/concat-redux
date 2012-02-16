@@ -19,6 +19,10 @@ public class Instructions {
         }
     }
 
+    public List<Call> getCalls() {
+        return calls;
+    }
+
     public List execute( Stack stack )
     {
         for (Call call : calls) {

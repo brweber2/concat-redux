@@ -10,10 +10,9 @@ import org.testng.annotations.Test;
  */
 public class HelloWorldTest {
     @Test
-    public void testHelloWorld()
-    {
+    public void testHelloWorld() throws InterruptedException {
         // define println function
-        Literal<String> str = new Literal<String>("World");
+        Literal<String> str = new Literal<String>("World",String.class);
         Call println = new PrintlnCall();
 
         Main.invoke(str, println);
