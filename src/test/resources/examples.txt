@@ -1,0 +1,32 @@
+def add [ Number Number -> Number ] +
+
+define vocabulary
+use vocabulary
+import classes
+define word
+define type
+alias word
+alias type
+data literal
+  number
+  string
+  list
+  map
+name variable in scope
+lazy eval?
+function/method pointers?
+
+java interop
+  static field
+  call static method
+  call constructor
+  access field
+  call method
+
+operators???
+
+
+repl
+  define/redefine word
+  type check
+  execute
