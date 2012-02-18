@@ -1,4 +1,32 @@
-def add [ Number Number -> Number ] +
+keywords: vocab from use alias def name true false nil
+interop keywords: new
+
+. is 'call'
+: means move the next thing to right before the next period at this parse depth
+{} [] ()
+
+}
+
+:vocab math {
+  from kernel : use [main,println,exit].
+
+  :define add ( Number Number -> Number ) { + }.
+  :define subtract ( @a Number @b Number -> Number ) { @a @b - }.
+}.
+
+vocab math
+from kernel use [main,println,exit]
+alias java.lang.String String
+def add [ Number Number -> Number ] { + }
+// shortcut for naming stack items?
+nil
+true
+false
+"string"
+123.45
+[list,of,items]
+{name:value}
+{lazy eval}
 
 define vocabulary
 use vocabulary
@@ -8,6 +36,7 @@ define type
 alias word
 alias type
 data literal
+  boolean
   number
   string
   list
@@ -17,6 +46,7 @@ lazy eval?
 function/method pointers?
 
 java interop
+  class
   static field
   call static method
   call constructor
@@ -30,3 +60,8 @@ repl
   define/redefine word
   type check
   execute
+
+
+Person( "Dave", "Johnson" ).
+name( @person ).
+@person.age( 42 ).

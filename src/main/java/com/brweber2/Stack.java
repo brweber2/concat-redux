@@ -1,7 +1,9 @@
 package com.brweber2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author brweber2
@@ -10,8 +12,18 @@ import java.util.List;
 public class Stack {
     
     private List objects = new ArrayList();
+
+    private Map<String,Object> namedObjects = new HashMap<String, Object>();
     
-    // todo add named objects?
+    public Object get( String name )
+    {
+        return namedObjects.get( name );
+    }
+    
+    public void set( String name, Object object )
+    {
+        namedObjects.put( name, object );
+    }
     
     public void push( Object object )
     {
