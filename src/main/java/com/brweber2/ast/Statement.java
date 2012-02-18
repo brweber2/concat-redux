@@ -57,4 +57,9 @@ public class Statement {
     public void addColon() {
         justReadAColon = true;
     }
+
+    public String getName() {
+        List list = getPieces();
+        return ((Symbol)list.get(list.size()-1)).symbol;
+    }
 }
