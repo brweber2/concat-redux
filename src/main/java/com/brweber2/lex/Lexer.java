@@ -23,6 +23,11 @@ public class Lexer {
         }
         this.reader = reader;
     }
+
+    public TokenStream lex()
+    {
+        return new TokenStream(read());
+    }
     
     public List<LexToken> read()
     {
@@ -127,7 +132,7 @@ public class Lexer {
             c = reader.read();
         }
         reader.reset();
-        return new Symbol(symbol);
+        return new Symbol(symbol,reader.getLineNumber());
     }
 
     private boolean isSymbolChar(int c) {
@@ -140,58 +145,58 @@ public class Lexer {
 
     private LexToken readNamedVar() throws IOException {
         reader.read(); // discard the '@'
-        return new Var( (Symbol) readSymbol() );
+        return new Var( (Symbol) readSymbol(), reader.getLineNumber() );
     }
 
     private LexToken readArrow() throws IOException {
         reader.read();
         reader.read();
-        return Token.ARROW;
+        return Token.ARROW.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readStackEffectEnd() throws IOException {
         reader.read();
-        return Token.PAREN_CLOSE;
+        return Token.PAREN_CLOSE.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readStackEffect() throws IOException {
         reader.read();
-        return Token.PAREN_OPEN;
+        return Token.PAREN_OPEN.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readListEnd() throws IOException {
         reader.read();
-        return Token.BRACKET_CLOSE;
+        return Token.BRACKET_CLOSE.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readList() throws IOException {
         reader.read();
-        return Token.BRACKET_OPEN;
+        return Token.BRACKET_OPEN.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readLazyEvalEnd() throws IOException {
         reader.read();
-        return Token.BRACE_CLOSE;
+        return Token.BRACE_CLOSE.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readLazyEval() throws IOException {
         reader.read();
-        return Token.BRACE_OPEN;
+        return Token.BRACE_OPEN.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readComma() throws IOException {
         reader.read();
-        return Token.COMMA;
+        return Token.COMMA.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readDot() throws IOException {
         reader.read();
-        return Token.DOT;
+        return Token.DOT.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readColon() throws IOException {
         reader.read();
-        return Token.COLON;
+        return Token.COLON.setLineNumber(reader.getLineNumber());
     }
 
     private void stripWhitespace() throws IOException {

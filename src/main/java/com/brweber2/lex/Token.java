@@ -15,5 +15,18 @@ public enum Token implements LexToken {
     DOT,
     EOF,
     PAREN_OPEN,
-    PAREN_CLOSE
+    PAREN_CLOSE;
+
+    private int lineNumber;
+    
+    @Override
+    public LexToken setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+        return this;
+    }
+
+    @Override
+    public int getLineNumber() {
+        return lineNumber;
+    }
 }

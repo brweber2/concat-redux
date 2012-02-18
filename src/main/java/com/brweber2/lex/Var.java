@@ -7,14 +7,17 @@ package com.brweber2.lex;
 public class Var implements LexToken {
     
     public final String var;
+    public int lineNumber;
     
-    public Var(String var)
+    public Var(String var, int lineNumber)
     {
         this.var = var;
+        this.lineNumber = lineNumber;
     }
     
-    public Var(Symbol symbol) {
+    public Var(Symbol symbol, int lineNumber) {
         this.var = symbol.symbol;
+        this.lineNumber = lineNumber;
     }
 
     @Override
@@ -39,5 +42,16 @@ public class Var implements LexToken {
     @Override
     public int hashCode() {
         return var.hashCode();
+    }
+
+    @Override
+    public LexToken setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+        return this;
+    }
+
+    @Override
+    public int getLineNumber() {
+        return lineNumber;
     }
 }

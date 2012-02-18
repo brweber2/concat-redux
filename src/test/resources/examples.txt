@@ -14,6 +14,10 @@ interop keywords: new
   :define subtract ( @a Number @b Number -> Number ) { @a @b - }.
 }.
 
+statement :- terms '.'
+
+terms :- symbol | var | colon | list | lazy | stackdef
+
 vocab math
 from kernel use [main,println,exit]
 alias java.lang.String String
