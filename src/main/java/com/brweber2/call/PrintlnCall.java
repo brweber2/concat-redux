@@ -1,8 +1,8 @@
 package com.brweber2.call;
 
-import com.brweber2.CheckedType;
-import com.brweber2.Invoke;
-import com.brweber2.Stack;
+import com.brweber2.run.Invoke;
+import com.brweber2.run.Stack;
+import com.brweber2.type.CheckedType;
 import com.brweber2.type.JavaType;
 
 import java.util.Arrays;

@@ -5,7 +5,9 @@ import com.brweber2.bootstrap.Bootstrap;
 import com.brweber2.lex.Lexer;
 import com.brweber2.lex.TokenStream;
 import com.brweber2.parse.Parser;
+import com.brweber2.run.Call;
 import com.brweber2.transform.TransformAst;
+import com.brweber2.type.StaticTypeChecker;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

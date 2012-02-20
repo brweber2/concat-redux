@@ -2,6 +2,8 @@ package com.brweber2;
 
 import com.brweber2.call.Literal;
 import com.brweber2.call.PrintlnCall;
+import com.brweber2.run.Call;
+import com.brweber2.type.StaticTypeChecker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,7 +28,7 @@ public class TypeCheckTest {
         Call println = new PrintlnCall();
 
         try {
-            StaticTypeChecker.check( str, println );
+            StaticTypeChecker.check(str, println);
             Assert.fail("Should not have type checked!!!");
         } catch (Exception e) {
             // good

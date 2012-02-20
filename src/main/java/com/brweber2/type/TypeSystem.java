@@ -1,6 +1,5 @@
 package com.brweber2.type;
 
-import com.brweber2.CheckedType;
 import com.brweber2.vocab.Vocabulary;
 
 /**

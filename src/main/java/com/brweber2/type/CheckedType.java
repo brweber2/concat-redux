@@ -1,4 +1,4 @@
-package com.brweber2;
+package com.brweber2.type;
 
 import com.brweber2.lex.Symbol;
 

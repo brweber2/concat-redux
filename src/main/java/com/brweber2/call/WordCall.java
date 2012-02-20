@@ -1,8 +1,8 @@
 package com.brweber2.call;
 
-import com.brweber2.Call;
-import com.brweber2.Instructions;
-import com.brweber2.Stack;
+import com.brweber2.run.Call;
+import com.brweber2.run.Instructions;
+import com.brweber2.run.Stack;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.vocab.Vocabulary;

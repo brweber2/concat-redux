@@ -1,6 +1,6 @@
 package com.brweber2.ast;
 
-import com.brweber2.Instructions;
+import com.brweber2.run.Instructions;
 import com.brweber2.transform.TransformAst;
 
 import java.util.ArrayList;

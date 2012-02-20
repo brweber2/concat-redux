@@ -1,6 +1,6 @@
 package com.brweber2.transform;
 
-import com.brweber2.Call;
+import com.brweber2.run.Call;
 import com.brweber2.ast.Statement;
 import com.brweber2.call.WordCall;
 
@@ -16,7 +16,7 @@ public class LookupTransformer implements StatementTransformer {
     public List<Call> transform(Statement statement) {
         List<Call> calls = new ArrayList<Call>();
         for (Object o : statement.getArgs()) {
-            calls.add( TransformAst.transformArg( o ) );
+            calls.add( TransformAst.transformArg(o) );
         }
         calls.add( new WordCall(statement) );
         return calls;

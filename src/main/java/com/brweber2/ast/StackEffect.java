@@ -1,8 +1,8 @@
 package com.brweber2.ast;
 
-import com.brweber2.Call;
-import com.brweber2.CheckedType;
-import com.brweber2.Instructions;
+import com.brweber2.run.Call;
+import com.brweber2.run.Instructions;
+import com.brweber2.type.CheckedType;
 import com.brweber2.call.Set;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Var;
