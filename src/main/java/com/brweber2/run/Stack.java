@@ -63,4 +63,9 @@ public class Stack {
                 ", namedObjects=" + namedObjects +
                 '}';
     }
+
+    public void clear() {
+        objects.clear();
+        namedObjects.clear();
+    }
 }

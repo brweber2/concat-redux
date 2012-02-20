@@ -25,27 +25,38 @@ public class Repl {
         Bootstrap.bootstrap();
         ConsoleReader reader = new ConsoleReader();
         reader.setPrompt(">>");
+        Stack stack = new Stack();
         boolean done = false;
         while ( !done )
         {
-            String read = read(reader);
-            Object result = eval(read);
-            print(result);
-            done = done(result);
+            try {
+                String read = read(reader);
+                Object result = eval(read,stack);
+                print(result);
+                done = done(result);
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static Object eval(String read) {
+    private static Object eval(String read, Stack stack) {
+        System.out.println("read: [" + read + "]");
         if ( "exit".equals(read) || "quit".equals(read) )
         {
             return read;
+        }
+        if ( "clear".equals(read.trim()) )
+        {
+            stack.clear();
+            return "";
         }
         LineNumberReader source = new LineNumberReader(new StringReader(read));
         TokenStream tokens = Lexer.lex(source);
         List<Statement> statements = Parser.parse(tokens);
         List<Call> calls = TransformAst.transform(statements);
         StaticTypeChecker.check(calls);
-        Stack stack = new Stack();
+        
         for (Call call : calls) {
             call.invoke(stack);
         }
