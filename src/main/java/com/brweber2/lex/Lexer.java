@@ -51,6 +51,8 @@ public class Lexer {
         }
     }
 
+    // string "
+    // number 0-9
     // colon :
     // symbol
     // lazy eval { }
@@ -65,7 +67,15 @@ public class Lexer {
             stripWhitespace();
         }
         // read the next token
-        if ( colonNext() )
+        if ( stringNext () )
+        {
+            return readString();
+        }
+        else if ( numberNext() )
+        {
+            return readNumber();
+        }
+        else if ( colonNext() )
         {
             return readColon();
         }
@@ -119,6 +129,35 @@ public class Lexer {
         }
     }
 
+    private LexToken readNumber() throws IOException {
+        int i = reader.read();
+        switch (i)
+        {
+            case 48:
+                return Token.ZERO;
+            case 49:
+                return Token.ONE;
+            case 50:
+                return Token.TWO;
+            case 51:
+                return Token.THREE;
+            case 52:
+                return Token.FOUR;
+            case 53:
+                return Token.FIVE;
+            case 54:
+                return Token.SIX;
+            case 55:
+                return Token.SEVEN;
+            case 56:
+                return Token.EIGHT;
+            case 57:
+                return Token.NINE;
+            default:
+                throw new RuntimeException("Invalid number token " + i + ".");
+        }
+    }
+
     private LexToken readSymbol() throws IOException {
         if ( eofNext() )
         {
@@ -142,7 +181,7 @@ public class Lexer {
     }
 
     private boolean isSymbolChar(int c) {
-        return (c > 32 && c < 44) || (c > 44 && c < 93)|| (c > 93 && c < 127);
+        return (c > 32 && c < 34) || (c > 34 && c < 44) || (c > 44 && c < 93)|| (c > 93 && c < 127);
                 
 //                (c >= 46 && c <= 57) ||  // . / or number
 //                (c >=65 && c <= 90) ||   // upper case letter
@@ -158,6 +197,11 @@ public class Lexer {
         reader.read();
         reader.read();
         return Token.ARROW.setLineNumber(reader.getLineNumber());
+    }
+
+    private LexToken readString() throws IOException {
+        reader.read();
+        return Token.DOUBLE_QUOTE.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readStackEffectEnd() throws IOException {
@@ -225,6 +269,17 @@ public class Lexer {
         return i == '>';
     }
 
+    private boolean numberNext() throws IOException {
+        reader.mark(READ_AHEAD);
+        int r = reader.read();
+        reader.reset();
+        return r >= 48 && r <= 57;
+    }
+    
+    private boolean stringNext() throws IOException {
+        return intNext('"');
+    }
+    
     private boolean dashNext() throws IOException {
         return intNext('-');
     }

@@ -19,7 +19,7 @@ public class Literal<T> implements Call {
     protected T literal;
     protected CheckedType type;
 
-    public Literal(T literal, Class<T> c) {
+    public Literal(T literal, Class<? extends T> c) {
         this.literal = literal;
         type = new JavaType(c);
     }

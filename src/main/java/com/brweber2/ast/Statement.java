@@ -27,6 +27,21 @@ public class Statement {
         return pieces;
     }
 
+    public void add( Object o )
+    {
+        addObject(o);
+    }
+
+    public void add( NumberLiteral numberLiteral )
+    {
+        addObject(numberLiteral);
+    }
+
+    public void add( StringLiteral stringLiteral )
+    {
+        addObject(stringLiteral);
+    }
+
     public void add(StackEffect stackEffect) {
         addObject( stackEffect );
     }
