@@ -18,12 +18,13 @@ public class ReadFileAndRunItTest {
     @Test
     public void readFileAndRunIt() throws IOException {
         Vocabulary.getCurrent().register("println", new PrintlnCall() );
-        String source = "\n\n:define wow ( java.lang.String ->  ) { println . } .\n" +
+        String source = "\n\n:define wow ( java.lang.String ->  ) { :println . } .\n" +
                         ":wow \"Hello\" .";
         File file = File.createTempFile("readFileAndRunIt", UUID.randomUUID().toString());
         FileWriter writer = new FileWriter(file);
         writer.write(source);
         writer.close();
         Runtime.main(new String[] {file.getAbsolutePath()});
+        System.out.println();
     }
 }

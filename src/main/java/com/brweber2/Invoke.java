@@ -49,8 +49,6 @@ public class Invoke implements Call {
     {
         Stack stack = new Stack();
 
-        List outputs = getOutputs(stack);
-
         if ( stackEffect.getInputTypes().size() > thisStack.size() )
         {
             System.err.println("This stack is " + thisStack);
@@ -61,7 +59,7 @@ public class Invoke implements Call {
         {
             stack.push( thisStack.peek(i) );
         }
-
+        List outputs = getOutputs(stack);
         if ( stackEffect.getOutputTypes().size() > outputs.size() )
         {
             throw new RuntimeException("Wrong number of outputs!");

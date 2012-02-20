@@ -5,8 +5,10 @@ import com.brweber2.CheckedType;
 import com.brweber2.Instructions;
 import com.brweber2.Stack;
 import com.brweber2.ast.StackEffect;
+import com.brweber2.ast.Statement;
 import com.brweber2.vocab.Vocabulary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +18,21 @@ import java.util.List;
 public class WordCall implements Call {
     
     private String word;
+    private List<Call> args = new ArrayList<Call>();
     
-    public WordCall(String word) {
-        this.word = word;
+    public WordCall(Statement statement) {
+        word = statement.getName();
+        List pieces = statement.getPieces();
+        for (Object o : pieces.subList(0,pieces.size()-1)) {
+            if ( o instanceof Call )
+            {
+                args.add((Call)o);
+            }
+            else
+            {
+                args.add(new IdentityCall(o));
+            }
+        }
     }
     
     private Call getCall()
@@ -28,6 +42,9 @@ public class WordCall implements Call {
 
     @Override
     public void invoke(Stack stack) {
+        for (Call arg : args) {
+            arg.invoke(stack);
+        }
         getCall().invoke(stack);
     }
 
