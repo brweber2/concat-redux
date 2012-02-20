@@ -4,9 +4,7 @@ import com.brweber2.Call;
 import com.brweber2.ast.Statement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author brweber2
@@ -14,49 +12,86 @@ import java.util.Map;
  */
 public class TransformAst {
 
-    private static TransformAst transformAst;
+    private static final DefineTransformer define = new DefineTransformer();
+    private static final LookupTransformer lookup = new LookupTransformer();
 
-    public static TransformAst getInstance()
-    {
-        if ( transformAst == null )
-        {
-            transformAst = new TransformAst();
-        }
-        return transformAst;
-    }
+    private static final GetTransformer get = new GetTransformer();
+    private static final SetTransformer set = new SetTransformer();
+
+    private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
+    private static final StaticMethodTransformer staticMethod = new StaticMethodTransformer();
+    private static final ConstructorTransformer constructor = new ConstructorTransformer();
+    private static final InstanceFieldTransformer instanceField = new InstanceFieldTransformer();
+    private static final InstanceMethodTransformer instanceMethod = new InstanceMethodTransformer();
+
     
-    private Map<String,StatementTransformer> transformers = new HashMap<String,StatementTransformer>();
-    
-    public List<Call> transform( List<Statement> statements )
+    public static List<Call> transform( List<Statement> statements )
     {
+        TransformAst transformAst = new TransformAst();
         List<Call> calls = new ArrayList<Call>();
         for (Statement statement : statements) {
-            calls.add( transformStatement( statement ) );
+            calls.add( transformAst.transformStatement(statement) );
         }
         return calls;
     }
-    
-    public void registerTranformer( StatementTransformer transformer )
-    {
-        if ( transformers.containsKey( transformer.getName() ) )
-        {
-            System.out.println("replacing transformer for " + transformer.getName());
-        }
-        transformers.put( transformer.getName(), transformer );
-    }
-
-    public void removeTransformer( StatementTransformer transformer )
-    {
-        transformers.remove( transformer.getName() );
-    }
 
     private Call transformStatement(Statement statement) {
+        return getStatementTransformer(statement).transform(statement);
+    }
+
+    /**
+     * define
+     * lookup
+     * set
+     * get
+     * native
+     *   static field
+     *   static method call
+     *   constructor call
+     *   instance field
+     *   instance method call
+     *
+     * @param statement The statement that will be transformed to a call.
+     * @return The appropriate class for transforming this statement to a call.
+     */
+    private StatementTransformer getStatementTransformer(Statement statement) {
         String name = statement.getName();
-        if ( !transformers.containsKey(name))
+        if ( "define".equals(name))
         {
-            throw new RuntimeException("Invalid statement: " + statement);
+            return define;
         }
-        return transformers.get(name).transform(statement);
+        else if ( "get".equals(name) )
+        {
+            return get;
+        }
+        else if ( "set".equals(name) )
+        {
+            return set;
+        }
+        else if ( "staticField".equals(name) )
+        {
+            return staticField;
+        }
+        else if ( "staticMethod".equals(name) )
+        {
+            return staticMethod;
+        }
+        else if ( "constructor".equals(name) )
+        {
+            return constructor;
+        }
+        else if ( "instanceField".equals(name) )
+        {
+            return instanceField;
+        }
+        else if ( "instanceMethod".equals(name) )
+        {
+            return instanceMethod;
+        }
+        else 
+        {
+            return lookup;
+        }
     }
 
 }

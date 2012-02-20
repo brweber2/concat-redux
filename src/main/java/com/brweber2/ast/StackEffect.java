@@ -1,7 +1,9 @@
 package com.brweber2.ast;
 
+import com.brweber2.CheckedType;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Var;
+import com.brweber2.type.TypeSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +47,51 @@ public class StackEffect {
 
     public void addArrow() {
         arrowCount++;
+    }
+
+    public List<CheckedType> getInputTypes() {
+        if ( !isValid() )
+        {
+            throw new RuntimeException("Invalid stack effect " + this);
+        }
+        List<CheckedType> types = new ArrayList<CheckedType>();
+        for (Object o : beforeArrow) {
+            if ( o instanceof Symbol )
+            {
+                types.add(TypeSystem.findType(((Symbol)o).symbol));
+            }
+            else if ( o instanceof  Var )
+            {
+                // ok
+            }
+            else
+            {
+                throw new RuntimeException("Invalid stack effect " + this  + " because a non symbol/var was found.");
+            }
+        }
+        return types;
+    }
+
+    public List<CheckedType> getOutputTypes() {
+        if ( !isValid() )
+        {
+            throw new RuntimeException("Invalid stack effect " + this);
+        }
+        List<CheckedType> types = new ArrayList<CheckedType>();
+        for (Object o : afterArrow) {
+            if ( o instanceof Symbol )
+            {
+                types.add(TypeSystem.findType(((Symbol)o).symbol));
+            }
+            else if ( o instanceof  Var )
+            {
+                // ok
+            }
+            else
+            {
+                throw new RuntimeException("Invalid stack effect " + this  + " because a non symbol/var was found.");
+            }
+        }
+        return types;
     }
 }

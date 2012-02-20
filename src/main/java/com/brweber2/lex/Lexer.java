@@ -23,6 +23,12 @@ public class Lexer {
         }
         this.reader = reader;
     }
+    
+    public static TokenStream lex( LineNumberReader reader)
+    {
+        Lexer lexer = new Lexer(reader);
+        return lexer.lex();
+    }
 
     public TokenStream lex()
     {

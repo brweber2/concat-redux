@@ -3,6 +3,7 @@ package com.brweber2.call;
 import com.brweber2.CheckedType;
 import com.brweber2.Invoke;
 import com.brweber2.Stack;
+import com.brweber2.lex.Var;
 import com.brweber2.type.JavaType;
 
 import java.util.Arrays;
@@ -19,7 +20,8 @@ public class Get extends Invoke {
 
     @Override
     protected List getOutputs(Stack stack) {
-        String toGet = (String) stack.pop();
-        return Arrays.asList( stack.get( toGet ) );
+        stack.pop(); // ignore the type
+        Var toGet = (Var) stack.pop();
+        return Arrays.asList( stack.get(toGet.var) );
     }
 }

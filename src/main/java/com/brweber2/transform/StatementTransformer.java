@@ -8,6 +8,5 @@ import com.brweber2.ast.Statement;
  *         Copyright: 2012
  */
 public interface StatementTransformer {
-    String getName();
     Call transform(Statement statement);
 }

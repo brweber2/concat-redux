@@ -8,7 +8,13 @@ public class Var implements LexToken {
     
     public final String var;
     public int lineNumber;
-    
+
+    public Var(String var)
+    {
+        this.var = var;
+        this.lineNumber = -1;
+    }
+
     public Var(String var, int lineNumber)
     {
         this.var = var;

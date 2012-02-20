@@ -10,7 +10,13 @@ public class Symbol implements LexToken {
     
     public final String symbol;
     private int lineNumber;
-    
+
+    public Symbol(String symbol)
+    {
+        this.symbol = symbol;
+        this.lineNumber = -1;
+    }
+
     public Symbol(String symbol, int lineNumber)
     {
         this.symbol = symbol;

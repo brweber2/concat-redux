@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class Parser {
 
-    public List<Statement> parse( TokenStream tokens )
+    public static List<Statement> parse( TokenStream tokens )
     {
-        return parseStatements( tokens );
+        return new Parser().parseStatements( tokens );
     }
 
     public List<Statement> parseStatements( TokenStream tokens )

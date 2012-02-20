@@ -9,6 +9,11 @@ import java.util.List;
  */
 public class StaticTypeChecker {
 
+    public static void check( List<Call> calls )
+    {
+        check(calls.toArray(new Call[calls.size()]));
+    }
+    
     public static void check( Call ... calls )
     {
         List<CheckedType> typeStack = new ArrayList<CheckedType>();

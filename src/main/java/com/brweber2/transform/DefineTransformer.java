@@ -4,7 +4,7 @@ import com.brweber2.Call;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
-import com.brweber2.call.UserDefinedCall;
+import com.brweber2.call.DefineCall;
 import com.brweber2.lex.Symbol;
 
 import java.util.List;
@@ -14,15 +14,6 @@ import java.util.List;
  *         Copyright: 2012
  */
 public class DefineTransformer implements StatementTransformer {
-    static
-    {
-        TransformAst.getInstance().registerTranformer(new DefineTransformer());
-    }
-
-    @Override
-    public String getName() {
-        return "define";
-    }
 
     @Override
     public Call transform(Statement statement) {
@@ -54,6 +45,7 @@ public class DefineTransformer implements StatementTransformer {
         }
         Block block = (Block) blockObject;
 
-        return new UserDefinedCall(name, stackEffect, block );
+        return new DefineCall(name, stackEffect, block );
     }
+
 }

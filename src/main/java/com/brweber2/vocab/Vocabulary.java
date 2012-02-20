@@ -37,13 +37,19 @@ public class Vocabulary {
     }
     
     private String name;
+    private Map<String,Call> words = new HashMap<String,Call>();
 
     public String getName() {
         return name;
     }
 
-    public void register( String name, Call call )
+    public Call findWord( String name )
     {
+        return words.get(name);
+    }
 
+    public void register( String name, Call word )
+    {
+        words.put(name,word);
     }
 }

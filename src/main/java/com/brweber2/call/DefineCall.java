@@ -13,13 +13,13 @@ import java.util.List;
  * @author brweber2
  *         Copyright: 2012
  */
-public class UserDefinedCall extends Invoke {
+public class DefineCall extends Invoke {
     
     private Symbol name;
     private StackEffect stackEffect;
     private Block block;
 
-    public UserDefinedCall(Symbol name, StackEffect stackEffect, Block block) {
+    public DefineCall(Symbol name, StackEffect stackEffect, Block block) {
         super(stackEffect.getInputTypes(),stackEffect.getOutputTypes());
         setInstructions( block.getInstructions() );
         Vocabulary.getCurrent().register(name.symbol,this);
