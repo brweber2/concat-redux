@@ -31,14 +31,14 @@ public class DefineTransformer implements StatementTransformer {
         }
         Symbol name = (Symbol) nameObject;
 
-        Object stackEffectObject = pieces.get(0);
+        Object stackEffectObject = pieces.get(1);
         if ( !(stackEffectObject instanceof StackEffect))
         {
             throw new RuntimeException("The stack effect of a define word must be a stack effect, not a " + stackEffectObject);
         }
         StackEffect stackEffect = (StackEffect) stackEffectObject;
 
-        Object blockObject = pieces.get(0);
+        Object blockObject = pieces.get(2);
         if ( !(blockObject instanceof Block))
         {
             throw new RuntimeException("The block of a define word must be a block, not a " + blockObject);

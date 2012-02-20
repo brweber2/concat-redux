@@ -24,8 +24,14 @@ public class Invoke implements Call{
         return instructions;
     }
 
-    public void setInstructions(Instructions instructions) {
-        this.instructions = instructions;
+    public void setInstructions(Instructions ... instructions) {
+        if ( this.instructions == null )
+        {
+            this.instructions = new Instructions();
+        }
+        for (Instructions instruction : instructions) {
+            this.instructions.getCalls().addAll(instruction.getCalls());
+        }
     }
 
     public List<CheckedType> getInputTypes() {

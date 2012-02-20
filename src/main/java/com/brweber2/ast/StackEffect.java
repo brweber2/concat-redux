@@ -1,6 +1,9 @@
 package com.brweber2.ast;
 
+import com.brweber2.Call;
 import com.brweber2.CheckedType;
+import com.brweber2.Instructions;
+import com.brweber2.call.Set;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
@@ -20,7 +23,7 @@ public class StackEffect {
 
     public boolean isValid()
     {
-        return arrowCount == 1 && !beforeArrow.isEmpty() && !afterArrow.isEmpty();
+        return arrowCount == 1;
     }
 
     public void add(Symbol token) {
@@ -93,5 +96,30 @@ public class StackEffect {
             }
         }
         return types;
+    }
+
+    public Instructions getInstructions() {
+        List<Call> calls = new ArrayList<Call>();
+        Var var = null;
+        for (Object o : beforeArrow) {
+            if ( o instanceof Symbol )
+            {
+                if ( var != null )
+                {
+                    CheckedType type = TypeSystem.findType(((Symbol)o).symbol);
+                    calls.add( new Set(var,type) );
+                }
+                var = null;
+            }
+            else if ( o instanceof  Var )
+            {
+                var = (Var) o;
+            }
+            else
+            {
+                throw new RuntimeException("Invalid stack effect " + this  + " because a non symbol/var was found.");
+            }
+        }
+        return new Instructions(calls);
     }
 }

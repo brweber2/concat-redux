@@ -21,7 +21,7 @@ public class DefineCall extends Invoke {
 
     public DefineCall(Symbol name, StackEffect stackEffect, Block block) {
         super(stackEffect.getInputTypes(),stackEffect.getOutputTypes());
-        setInstructions( block.getInstructions() );
+        setInstructions( stackEffect.getInstructions(), block.getInstructions() );
         Vocabulary.getCurrent().register(name.symbol,this);
     }
 

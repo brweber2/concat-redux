@@ -28,7 +28,7 @@ public class Parser {
     {
         List<Statement> calls = new ArrayList<Statement>();
         LexToken token;
-        while ( ( token = tokens.getNextToken() ) == Token.EOF )
+        while ( ( token = tokens.getNextToken() ) != Token.EOF )
         {
             calls.add(parseStatement(token, tokens));
         }
@@ -83,6 +83,10 @@ public class Parser {
     {
         // { ... }
         Block block = new Block();
+        if ( token == Token.BRACE_OPEN )
+        {
+            token = tokens.getNextToken();
+        }
         while ( token != Token.BRACE_CLOSE )
         {
             if ( token == Token.EOF )
@@ -99,6 +103,10 @@ public class Parser {
     {
         // [ ... , ... ]
         Items items = new Items();
+        if ( token == Token.BRACKET_OPEN )
+        {
+            token = tokens.getNextToken();
+        }
         while ( token != Token.BRACKET_CLOSE )
         {
             if ( token == Token.EOF )
@@ -133,6 +141,10 @@ public class Parser {
     {
         // ( ... -> ... )
         StackEffect stackEffect = new StackEffect();
+        if ( token == Token.PAREN_OPEN )
+        {
+            token = tokens.getNextToken();
+        }
         while ( token != Token.PAREN_CLOSE )
         {
             if ( token == Token.EOF )

@@ -15,14 +15,30 @@ import java.util.List;
  *         Copyright: 2012
  */
 public class Set extends Invoke {
+
+    private Var var = null;
+    
+    public Set(Var var, CheckedType type) {
+        super(Arrays.<CheckedType>asList(new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
+        this.var = var;
+    }
+
     public Set(CheckedType type) {
         super(Arrays.<CheckedType>asList(new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
     }
 
     @Override
     protected List getOutputs(Stack stack) {
-        stack.pop(); // ignore the type
-        Var name = (Var) stack.pop();
+        Var name;
+        if ( var != null )
+        {
+            name = var;
+        }
+        else
+        {
+            stack.pop(); // ignore the type
+            name = (Var) stack.pop();
+        }
         Object object = stack.pop();
         stack.set(name.var,object);
         return Collections.emptyList();

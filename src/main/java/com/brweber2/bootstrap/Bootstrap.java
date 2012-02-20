@@ -1,5 +1,6 @@
 package com.brweber2.bootstrap;
 
+import com.brweber2.call.DefineCall;
 import com.brweber2.transform.DefineTransformer;
 import com.brweber2.vocab.Vocabulary;
 
@@ -8,8 +9,5 @@ import com.brweber2.vocab.Vocabulary;
  *         Copyright: 2012
  */
 public class Bootstrap {
-    static
-    {
-        Vocabulary.getCurrent().register("define", new DefineTransformer());
-    }
+
 }

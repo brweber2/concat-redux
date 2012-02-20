@@ -15,9 +15,15 @@ public class Statement {
     private boolean justReadAColon = false;
     private List pieces = new ArrayList();
     private List tackOntoEnd = new ArrayList();
+    private boolean concatAlready = false;
 
     public List getPieces() {
+        if ( concatAlready )
+        {
+            return pieces;
+        }
         pieces.addAll(tackOntoEnd);
+        concatAlready = true;
         return pieces;
     }
 
