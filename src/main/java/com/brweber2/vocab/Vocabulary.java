@@ -1,6 +1,8 @@
 package com.brweber2.vocab;
 
 import com.brweber2.Call;
+import com.brweber2.CheckedType;
+import com.brweber2.lex.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,13 +37,15 @@ public class Vocabulary {
         }
         return vocabs.get( currentVocabName );
     }
-    
-    private String name;
-    private Map<String,Call> words = new HashMap<String,Call>();
 
-    public String getName() {
-        return name;
+    public static Call findWord(Symbol vocab, Symbol wordName) {
+        return vocabs.get(vocab.symbol).findWord(wordName.symbol);
     }
+
+    // -------------------- END STATIC SECTION ------------------------------------------------------
+    
+    private Map<String,Call> words = new HashMap<String,Call>();
+    private Map<String,CheckedType> typeAliases = new HashMap<String, CheckedType>();
 
     public Call findWord( String name )
     {
@@ -52,4 +56,15 @@ public class Vocabulary {
     {
         words.put(name,word);
     }
+    
+    public void alias( String name, CheckedType type )
+    {
+        typeAliases.put( name, type );
+    }
+    
+    public CheckedType lookupType( String name )
+    {
+        return typeAliases.get( name );
+    }
+
 }

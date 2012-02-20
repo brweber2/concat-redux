@@ -1,6 +1,7 @@
 package com.brweber2.type;
 
 import com.brweber2.CheckedType;
+import com.brweber2.vocab.Vocabulary;
 
 /**
  * @author brweber2
@@ -14,7 +15,12 @@ public class TypeSystem {
         try {
             return new JavaType(Class.forName(name));
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find type " + name + ".",e);
+            CheckedType type = Vocabulary.getCurrent().lookupType(name);
+            if ( type == null )
+            {
+                throw new RuntimeException("Unable to find type " + name + ".",e);
+            }
+            return type;
         }
     }
 }

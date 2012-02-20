@@ -69,3 +69,11 @@ repl
 Person( "Dave", "Johnson" ).
 name( @person ).
 @person.age( 42 ).
+
+
+
+:vocab math.
+:alias java.lang.Number Number .
+from kernel :use [main,println,exit].
+:define add ( Number Number -> Number ) { + }.
+:define subtract ( @a Number @b Number -> Number ) { @a @b - }.

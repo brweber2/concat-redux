@@ -1,6 +1,7 @@
 package com.brweber2;
 
 import com.brweber2.ast.Statement;
+import com.brweber2.bootstrap.Bootstrap;
 import com.brweber2.lex.Lexer;
 import com.brweber2.lex.TokenStream;
 import com.brweber2.parse.Parser;
@@ -18,6 +19,7 @@ import java.util.List;
 public class Runtime {
     
     public static void main(String[] args) throws FileNotFoundException {
+        Bootstrap.bootstrap();
         LineNumberReader source = new LineNumberReader(new FileReader(args[0]));
         TokenStream tokens = Lexer.lex(source);
         List<Statement> statements = Parser.parse(tokens);
