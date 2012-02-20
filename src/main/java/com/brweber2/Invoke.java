@@ -1,23 +1,34 @@
 package com.brweber2;
 
-import java.util.ArrayList;
+import com.brweber2.ast.StackEffect;
+
 import java.util.List;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class Invoke implements Call{
-
+public class Invoke implements Call {
     
-    protected List<CheckedType> inputTypes = new ArrayList<CheckedType>();
-    protected List<CheckedType> outputTypes = new ArrayList<CheckedType>();
+    protected StackEffect stackEffect;
     
     protected Instructions instructions = new Instructions();
 
-    public Invoke(List<CheckedType> inputTypes, List<CheckedType> outputTypes) {
-        this.inputTypes.addAll(inputTypes);
-        this.outputTypes.addAll(outputTypes);
+    protected Invoke( List<CheckedType> inputTypes, List<CheckedType> outputTypes )
+    {
+        StackEffect se = new StackEffect();
+        for (CheckedType inputType : inputTypes) {
+            se.add(inputType.toSymbol());
+        }
+        se.addArrow();
+        for (CheckedType outputType : outputTypes) {
+            se.add(outputType.toSymbol());
+        }
+        this.stackEffect = se;
+    }
+    
+    public Invoke(StackEffect stackEffect) {
+        this.stackEffect = stackEffect;
     }
 
     public Instructions getInstructions() {
@@ -34,35 +45,24 @@ public class Invoke implements Call{
         }
     }
 
-    public List<CheckedType> getInputTypes() {
-        return inputTypes;
-    }
-
-    public void setInputTypes(List<CheckedType> inputTypes) {
-        this.inputTypes = inputTypes;
-    }
-
-    public List<CheckedType> getOutputTypes() {
-        return outputTypes;
-    }
-
-    public void setOutputTypes(List<CheckedType> outputTypes) {
-        this.outputTypes = outputTypes;
-    }
-
     public void invoke(Stack thisStack)
     {
         Stack stack = new Stack();
-        if ( inputTypes.size() > thisStack.size() )
+
+        List outputs = getOutputs(stack);
+
+        if ( stackEffect.getInputTypes().size() > thisStack.size() )
         {
+            System.err.println("This stack is " + thisStack);
+            System.err.println("Stack effect is " + stackEffect);
             throw new RuntimeException("Not enough arguments on the current stack!");
         }
-        for (int i = 0; i < inputTypes.size(); i++ )
+        for (int i = 0; i < stackEffect.getInputTypes().size(); i++ )
         {
             stack.push( thisStack.peek(i) );
         }
-        List outputs = getOutputs(stack);
-        if ( outputTypes.size() > outputs.size() )
+
+        if ( stackEffect.getOutputTypes().size() > outputs.size() )
         {
             throw new RuntimeException("Wrong number of outputs!");
         }
@@ -70,7 +70,12 @@ public class Invoke implements Call{
             thisStack.push(output);
         }
     }
-    
+
+    @Override
+    public StackEffect getStackEffect() {
+        return stackEffect;
+    }
+
     protected List getOutputs( Stack stack )
     {
         return instructions.execute(stack);

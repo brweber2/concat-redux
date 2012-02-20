@@ -15,6 +15,7 @@ public class Main {
     public static void invoke(Call ... calls) {
         Stack stack = new Stack();
         for (Call call : calls) {
+            System.err.println("Trying to run " + call);
             call.invoke(stack);
         }
     }

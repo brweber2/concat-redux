@@ -19,7 +19,7 @@ public class ConstructorCall extends Invoke {
     protected Constructor c;
     
     public ConstructorCall(List<CheckedType> inputTypes, Constructor c) {
-        super(inputTypes, Arrays.<CheckedType>asList(new JavaType(c.getClass())) );
+        super(inputTypes, Arrays.<CheckedType>asList(new JavaType(c.getDeclaringClass())) );
         this.c = c;
     }
 

@@ -122,4 +122,13 @@ public class StackEffect {
         }
         return new Instructions(calls);
     }
+
+    @Override
+    public String toString() {
+        return "StackEffect{" +
+                "arrowCount=" + arrowCount +
+                ", beforeArrow=" + beforeArrow +
+                ", afterArrow=" + afterArrow +
+                '}';
+    }
 }

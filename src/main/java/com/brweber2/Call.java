@@ -1,5 +1,7 @@
 package com.brweber2;
 
+import com.brweber2.ast.StackEffect;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,6 @@ import java.util.List;
  */
 public interface Call {
     public void invoke(Stack stack);
-    public List<CheckedType> getInputTypes();
-    public List<CheckedType> getOutputTypes();
+    public StackEffect getStackEffect();
     public Instructions getInstructions();
 }

@@ -39,6 +39,10 @@ public class TransformAst {
     }
 
     private Call transformStatement(Statement statement) {
+        if ( statement instanceof Call )
+        {
+            return (Call) statement;
+        }
         Statement mods = replaceLiterals(statement);
         return getStatementTransformer(mods).transform(mods);
     }

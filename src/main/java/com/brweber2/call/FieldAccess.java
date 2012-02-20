@@ -33,7 +33,7 @@ public class FieldAccess extends Invoke {
 
     @Override
     protected List getOutputs(Stack thisStack) {
-        if ( inputTypes.isEmpty() )
+        if ( stackEffect.getInputTypes().isEmpty() )
         {
             // static field
             try {

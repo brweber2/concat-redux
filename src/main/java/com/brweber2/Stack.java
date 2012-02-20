@@ -55,4 +55,12 @@ public class Stack {
     {
         return objects.size();
     }
+
+    @Override
+    public String toString() {
+        return "Stack{" +
+                "objects=" + objects +
+                ", namedObjects=" + namedObjects +
+                '}';
+    }
 }

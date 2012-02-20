@@ -4,6 +4,7 @@ import com.brweber2.Call;
 import com.brweber2.CheckedType;
 import com.brweber2.Instructions;
 import com.brweber2.Stack;
+import com.brweber2.ast.StackEffect;
 import com.brweber2.vocab.Vocabulary;
 
 import java.util.List;
@@ -30,14 +31,10 @@ public class WordCall implements Call {
         getCall().invoke(stack);
     }
 
-    @Override
-    public List<CheckedType> getInputTypes() {
-        return getCall().getInputTypes();
-    }
 
     @Override
-    public List<CheckedType> getOutputTypes() {
-        return getCall().getOutputTypes();
+    public StackEffect getStackEffect() {
+        return getCall().getStackEffect();
     }
 
     @Override

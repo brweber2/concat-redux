@@ -15,14 +15,15 @@ import java.util.List;
  */
 public class DefineCall extends Invoke {
     
-    private Symbol name;
-    private StackEffect stackEffect;
-    private Block block;
-
     public DefineCall(Symbol name, StackEffect stackEffect, Block block) {
-        super(stackEffect.getInputTypes(),stackEffect.getOutputTypes());
-        setInstructions( stackEffect.getInstructions(), block.getInstructions() );
-        Vocabulary.getCurrent().register(name.symbol,this);
+        super(stackEffect);
+        Invoke invoke = new Invoke(stackEffect);
+        invoke.setInstructions(stackEffect.getInstructions(), block.getInstructions());
+        Vocabulary.getCurrent().register(name.symbol,invoke);
     }
 
+    @Override
+    public void invoke(Stack thisStack) {
+
+    }
 }
