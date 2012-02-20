@@ -21,7 +21,7 @@ public class JavaType implements CheckedType {
         if ( type instanceof JavaType )
         {
             JavaType otherType = (JavaType) type;
-            flag = this.type.isAssignableFrom(otherType.type);
+            flag = otherType.type.isAssignableFrom(this.type);
             System.err.println("checking if " + otherType.type.getName() + " is ok for " + this.type.getName() + " and the answer is " + flag);
         }
         return flag;
@@ -29,6 +29,6 @@ public class JavaType implements CheckedType {
 
     @Override
     public Symbol toSymbol() {
-        return new Symbol(type.getClass().getName());
+        return new Symbol(type.getName());
     }
 }
