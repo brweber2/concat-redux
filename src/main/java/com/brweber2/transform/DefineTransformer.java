@@ -7,6 +7,8 @@ import com.brweber2.ast.Statement;
 import com.brweber2.call.DefineCall;
 import com.brweber2.lex.Symbol;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,7 +18,8 @@ import java.util.List;
 public class DefineTransformer implements StatementTransformer {
 
     @Override
-    public Call transform(Statement statement) {
+    public List<Call> transform(Statement statement) {
+        List<Call> calls = new ArrayList<Call>();
         // the stack should contain:
         // name stack-effect block define
         List pieces = statement.getPieces();
@@ -45,7 +48,11 @@ public class DefineTransformer implements StatementTransformer {
         }
         Block block = (Block) blockObject;
 
-        return new DefineCall(name, stackEffect, block );
+        calls.add(TransformAst.transformArg(block));
+        calls.add(TransformAst.transformArg(stackEffect));
+        calls.add(TransformAst.transformArg(name));
+        calls.add(new DefineCall(name, stackEffect, block) );
+        return calls;
     }
 
 }

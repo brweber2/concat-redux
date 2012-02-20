@@ -8,13 +8,16 @@ import com.brweber2.lex.Var;
 import com.brweber2.type.JavaType;
 import com.brweber2.type.TypeSystem;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author brweber2
  *         Copyright: 2012
  */
 public class GetTransformer implements StatementTransformer {
     @Override
-    public Call transform(Statement statement) {
+    public List<Call> transform(Statement statement) {
         // @var type get
         // @firstName Text get
         if ( statement.getPieces().size() != 3 )
@@ -32,6 +35,6 @@ public class GetTransformer implements StatementTransformer {
             throw new RuntimeException("You must specify a type for a 'get'.");
         }
         CheckedType type = TypeSystem.findType((String) t);
-        return new Get(type);
+        return Arrays.<Call>asList(new Get(type));
     }
 }

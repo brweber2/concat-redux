@@ -28,11 +28,11 @@ public class StaticTypeChecker {
     {
         StackEffect stackEffect = call.getStackEffect();
         for (CheckedType inputType : stackEffect.getInputTypes()) {
-            if ( !typeStack.remove(typeStack.size()-1).ok(inputType ) )
+            boolean ok = typeStack.remove(typeStack.size()-1).ok(inputType );
+            if ( !ok )
             {
                 throw new RuntimeException("Type check error!");
             }
-
         }
         for (Call nextCall : call.getInstructions().getCalls()) {
             checkCall( typeStack, nextCall );

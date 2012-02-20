@@ -19,7 +19,7 @@ import java.util.Collections;
 public class DefineCall extends Invoke {
     
     public DefineCall(Symbol name, StackEffect stackEffect, Block block) {
-        super(Collections.<CheckedType>emptyList(), Collections.<CheckedType>emptyList());
+        super(Arrays.<CheckedType>asList(new JavaType(Symbol.class),new JavaType(StackEffect.class),new JavaType(Block.class)), Collections.<CheckedType>emptyList());
         Invoke invoke = new Invoke(stackEffect);
         invoke.setInstructions(stackEffect.getInstructions(), block.getInstructions());
         Vocabulary.getCurrent().register(name.symbol,invoke);

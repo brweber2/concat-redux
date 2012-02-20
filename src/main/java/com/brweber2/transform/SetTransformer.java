@@ -7,13 +7,16 @@ import com.brweber2.call.Set;
 import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author brweber2
  *         Copyright: 2012
  */
 public class SetTransformer implements StatementTransformer {
     @Override
-    public Call transform(Statement statement) {
+    public List<Call> transform(Statement statement) {
         // value @var type set
         if ( statement.getPieces().size() != 4 )
         {
@@ -29,6 +32,6 @@ public class SetTransformer implements StatementTransformer {
             throw new RuntimeException("The type must be specified as a string.");
         }
         CheckedType type = TypeSystem.findType((String) o);
-        return new Set(type);
+        return Arrays.<Call>asList(new Set(type));
     }
 }

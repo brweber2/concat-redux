@@ -1,10 +1,16 @@
 package com.brweber2.transform;
 
 import com.brweber2.Call;
+import com.brweber2.ast.Block;
+import com.brweber2.ast.Items;
 import com.brweber2.ast.NumberLiteral;
+import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
+import com.brweber2.call.IdentityCall;
 import com.brweber2.call.Literal;
+import com.brweber2.lex.Symbol;
+import com.brweber2.lex.Var;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +39,13 @@ public class TransformAst {
         TransformAst transformAst = new TransformAst();
         List<Call> calls = new ArrayList<Call>();
         for (Statement statement : statements) {
-            calls.add( transformAst.transformStatement(statement) );
+            calls.addAll(transformAst.transformStatement(statement));
         }
         return calls;
     }
 
-    private Call transformStatement(Statement statement) {
-        if ( statement instanceof Call )
-        {
-            return (Call) statement;
-        }
-        Statement mods = replaceLiterals(statement);
-        return getStatementTransformer(mods).transform(mods);
+    private List<Call> transformStatement(Statement statement) {
+        return getStatementTransformer(statement).transform(statement);
     }
     
     private Statement replaceLiterals(Statement statement)
@@ -125,4 +126,39 @@ public class TransformAst {
         }
     }
 
+    public static Call transformArg(Object o) {
+        if ( o instanceof NumberLiteral )
+        {
+            Number nbr = ((NumberLiteral)o).getNbr();
+            return new Literal<Number>(nbr,nbr.getClass());
+        }
+        else if ( o instanceof StringLiteral )
+        {
+            return new Literal<String>(((StringLiteral)o).getStr(),String.class);
+        }
+        else if ( o instanceof Symbol )
+        {
+            return new IdentityCall(o);
+        }
+        else if ( o instanceof Var)
+        {
+            return new IdentityCall(o);
+        }
+        else if ( o instanceof Block)
+        {
+            return new IdentityCall(o);
+        }
+        else if ( o instanceof Items )
+        {
+            return new IdentityCall(o);
+        }
+        else if ( o instanceof StackEffect )
+        {
+            return new IdentityCall(o);
+        }
+        else
+        {
+            throw new RuntimeException("Unknown ast type " + o );
+        }
+    }
 }

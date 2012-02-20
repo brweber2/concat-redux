@@ -17,6 +17,12 @@ public class Statement {
     private List tackOntoEnd = new ArrayList();
     private boolean concatAlready = false;
 
+    public List getArgs()
+    {
+        List pieces = getPieces();
+        return pieces.subList(0, pieces.size() -1);
+    }
+    
     public List getPieces() {
         if ( concatAlready )
         {
