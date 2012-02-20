@@ -37,7 +37,6 @@ public class WordCall implements Call {
 
     @Override
     public Instructions getInstructions() {
-//        return getCall().getInstructions();
         return new Instructions();
     }
 }

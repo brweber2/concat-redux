@@ -1,5 +1,6 @@
 package com.brweber2.bootstrap;
 
+import com.brweber2.call.PrintlnCall;
 import com.brweber2.call.TypeAlias;
 import com.brweber2.call.Use;
 import com.brweber2.call.VocabCall;
@@ -15,5 +16,6 @@ public class Bootstrap {
         Vocabulary.getCurrent().register("vocab", new VocabCall() );
         Vocabulary.getCurrent().register("alias", new TypeAlias() );
         Vocabulary.getCurrent().register("use", new Use() );
+        Vocabulary.getCurrent().register("println", new PrintlnCall() );
     }
 }
