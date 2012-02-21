@@ -21,7 +21,6 @@ public class JavaType implements CheckedType {
         {
             JavaType otherType = (JavaType) type;
             flag = otherType.type.isAssignableFrom(this.type);
-            System.err.println("checking if " + otherType.type.getName() + " is ok for " + this.type.getName() + " and the answer is " + flag);
         }
         return flag;
     }

@@ -36,12 +36,13 @@ public class Repl {
                 done = done(result);
             } catch (RuntimeException e) {
                 e.printStackTrace();
+                System.err.flush();
             }
+            reader.flush();
         }
     }
 
     private static Object eval(String read, Stack stack) {
-        System.out.println("read: [" + read + "]");
         if ( "exit".equals(read) || "quit".equals(read) )
         {
             return read;
@@ -64,7 +65,7 @@ public class Repl {
     }
 
     private static String read(ConsoleReader reader) throws IOException {
-        return reader.readLine();
+        return reader.readLine(ConsoleReader.NULL_MASK);
     }
 
     private static void print(Object result) {

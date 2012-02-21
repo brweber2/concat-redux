@@ -52,8 +52,6 @@ public class Invoke implements Call {
 
         if ( stackEffect.getInputTypes().size() > thisStack.size() )
         {
-            System.err.println("This stack is " + thisStack);
-            System.err.println("Stack effect is " + stackEffect);
             throw new RuntimeException("Not enough arguments on the current stack!");
         }
         for (int i = 0; i < stackEffect.getInputTypes().size(); i++ )
