@@ -35,14 +35,14 @@ public class Stack {
     }
 
 
-    private Map<String,Object> namedObjects = new HashMap<String, Object>();
+    private Map<String,TypeObject> namedObjects = new HashMap<String, TypeObject>();
     
-    public Object get( String name )
+    public TypeObject get( String name )
     {
         return namedObjects.get( name );
     }
     
-    public void set( String name, Object object )
+    public void set( String name, TypeObject object )
     {
         namedObjects.put( name, object );
     }
@@ -87,10 +87,12 @@ public class Stack {
             str.append(object);
         }
         str.append("\n, namedObjects=");
-        for (Map.Entry<String, Object> stringObjectEntry : namedObjects.entrySet()) {
+        for (String key : namedObjects.keySet()) {
             str.append("\n");
             str.append("  ");
-            str.append(stringObjectEntry);
+            str.append(key);
+            str.append(": ");
+            str.append(namedObjects.get(key));
         }
         str.append("\n}");
         return str.toString();

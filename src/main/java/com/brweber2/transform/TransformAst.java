@@ -25,9 +25,6 @@ public class TransformAst {
     private static final DefineTransformer define = new DefineTransformer();
     private static final LookupTransformer lookup = new LookupTransformer();
 
-    private static final GetTransformer get = new GetTransformer();
-    private static final SetTransformer set = new SetTransformer();
-
     private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
     private static final StaticMethodTransformer staticMethod = new StaticMethodTransformer();
     private static final ConstructorTransformer constructor = new ConstructorTransformer();
@@ -92,14 +89,6 @@ public class TransformAst {
         if ( "define".equals(name))
         {
             return define;
-        }
-        else if ( "get".equals(name) )
-        {
-            return get;
-        }
-        else if ( "set".equals(name) )
-        {
-            return set;
         }
         else if ( "staticField".equals(name) )
         {

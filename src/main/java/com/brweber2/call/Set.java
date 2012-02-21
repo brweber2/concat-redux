@@ -1,46 +1,37 @@
 package com.brweber2.call;
 
-import com.brweber2.run.Invoke;
+import com.brweber2.ast.StackEffect;
+import com.brweber2.lex.Symbol;
+import com.brweber2.run.Call;
+import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
-import com.brweber2.type.CheckedType;
 import com.brweber2.lex.Var;
-import com.brweber2.type.JavaType;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class Set extends Invoke {
+public class Set implements Call {
 
-    private Var var = null;
-    
-    public Set(Var var, CheckedType type) {
-        super(Arrays.<CheckedType>asList(new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
-        this.var = var;
-    }
-
-    public Set(CheckedType type) {
-        super(Arrays.<CheckedType>asList(new JavaType(Object.class),new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
+    @Override
+    public void invoke(Stack stack) {
+        Var name = (Var) stack.pop().object;
+        Stack.TypeObject object = stack.pop();
+        stack.set(name.var,object);
     }
 
     @Override
-    protected List getOutputs(Stack stack) {
-        Var name;
-        if ( var != null )
-        {
-            name = var;
-        }
-        else
-        {
-            stack.pop(); // ignore the type
-            name = (Var) stack.pop().object;
-        }
-        Object object = stack.pop();
-        stack.set(name.var,object);
-        return Collections.emptyList();
+    public StackEffect getStackEffect() {
+        StackEffect stackEffect = new StackEffect();
+        stackEffect.add(new Symbol(Var.class.getName()));
+        stackEffect.add(new Symbol(Object.class.getName()));
+        stackEffect.addArrow();
+        stackEffect.add(new Symbol(Object.class.getName()));
+        return stackEffect;
+    }
+
+    @Override
+    public Instructions getInstructions() {
+        return new Instructions();
     }
 }

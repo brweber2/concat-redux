@@ -107,7 +107,8 @@ public class StackEffect {
                 if ( var != null )
                 {
                     CheckedType type = TypeSystem.findType(((Symbol)o).symbol);
-                    calls.add( new Set(var,type) );
+//                    calls.add( new Set(var,type) );
+                    // todo figure this out!!!
                 }
                 var = null;
             }

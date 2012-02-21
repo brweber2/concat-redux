@@ -1,28 +1,36 @@
 package com.brweber2.call;
 
+import com.brweber2.ast.StackEffect;
 import com.brweber2.lex.Symbol;
-import com.brweber2.run.Invoke;
+import com.brweber2.run.Call;
+import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
-import com.brweber2.type.CheckedType;
 import com.brweber2.lex.Var;
-import com.brweber2.type.JavaType;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class Get extends Invoke {
-    public Get(CheckedType type) {
-        super(Arrays.<CheckedType>asList(new JavaType(Var.class),new JavaType(Symbol.class)), Arrays.asList(type));
+public class Get implements Call {
+
+    @Override
+    public void invoke(Stack stack) {
+        Var toGet = (Var) stack.pop().object;
+        Stack.TypeObject typeObject = stack.get(toGet.var);
+        stack.push( typeObject.type,  typeObject.object );
     }
 
     @Override
-    protected List getOutputs(Stack stack) {
-        stack.pop(); // ignore the type
-        Var toGet = (Var) stack.pop().object;
-        return Arrays.asList( stack.get(toGet.var) );
+    public StackEffect getStackEffect() {
+        StackEffect stackEffect = new StackEffect();
+        stackEffect.add(new Symbol(Var.class.getName()));
+        stackEffect.addArrow();
+        stackEffect.add(new Symbol(Object.class.getName())); // todo some type info is lost here?
+        return stackEffect;
+    }
+
+    @Override
+    public Instructions getInstructions() {
+        return new Instructions();
     }
 }
