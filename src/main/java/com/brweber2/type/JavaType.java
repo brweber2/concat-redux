@@ -29,4 +29,11 @@ public class JavaType implements CheckedType {
     public Symbol toSymbol() {
         return new Symbol(type.getName());
     }
+
+    @Override
+    public String toString() {
+        return "JavaType{" +
+                "type=" + type.getName() +
+                '}';
+    }
 }

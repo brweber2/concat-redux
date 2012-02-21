@@ -56,7 +56,7 @@ public class Repl {
         TokenStream tokens = Lexer.lex(source);
         List<Statement> statements = Parser.parse(tokens);
         List<Call> calls = TransformAst.transform(statements);
-        StaticTypeChecker.check(calls);
+        StaticTypeChecker.check(stack,calls);
         
         for (Call call : calls) {
             call.invoke(stack);

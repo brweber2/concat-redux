@@ -27,6 +27,8 @@ public class DefineCall extends Invoke {
 
     @Override
     public void invoke(Stack thisStack) {
-
+        thisStack.pop();
+        thisStack.pop();
+        thisStack.pop();
     }
 }

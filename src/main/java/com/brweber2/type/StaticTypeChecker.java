@@ -2,6 +2,7 @@ package com.brweber2.type;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.run.Call;
+import com.brweber2.run.Stack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +44,13 @@ public class StaticTypeChecker {
         }
     }
 
+    public static void check(Stack stack, List<Call> calls) {
+        List<CheckedType> typeStack = new ArrayList<CheckedType>();
+        for (Stack.TypeObject o : stack.peekAll()) {
+            typeStack.add(o.type);
+        }
+        for (Call call : calls) {
+            checkCall(typeStack,call);
+        }
+    }
 }

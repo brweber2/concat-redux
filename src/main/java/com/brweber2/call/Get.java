@@ -21,7 +21,7 @@ public class Get extends Invoke {
     @Override
     protected List getOutputs(Stack stack) {
         stack.pop(); // ignore the type
-        Var toGet = (Var) stack.pop();
+        Var toGet = (Var) stack.pop().object;
         return Arrays.asList( stack.get(toGet.var) );
     }
 }

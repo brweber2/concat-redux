@@ -26,7 +26,7 @@ public class Literal<T> implements Call {
 
     @Override
     public void invoke(Stack stack) {
-        stack.push( literal );
+        stack.push( type, literal );
     }
 
     @Override

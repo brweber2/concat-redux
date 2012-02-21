@@ -55,15 +55,19 @@ public class Invoke implements Call {
         }
         for (int i = 0; i < stackEffect.getInputTypes().size(); i++ )
         {
-            stack.push( thisStack.pop() );
+            Stack.TypeObject typeObject = thisStack.pop();
+            stack.push( typeObject.type, typeObject.object );
         }
         List outputs = getOutputs(stack);
         if ( stackEffect.getOutputTypes().size() > outputs.size() )
         {
             throw new RuntimeException("Wrong number of outputs!");
         }
+        int i = outputs.size();
         for (Object output : outputs) {
-            thisStack.push(output);
+            CheckedType type = stackEffect.getOutputTypes().get(i-1);
+            thisStack.push(type, output);
+            i--;
         }
     }
 

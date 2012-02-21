@@ -16,8 +16,8 @@ public class TypeAlias implements Call {
     @Override
     public void invoke(Stack stack) {
         try {
-            Symbol type = (Symbol) stack.pop();
-            Symbol alias = (Symbol) stack.pop();
+            Symbol type = (Symbol) stack.pop().object;
+            Symbol alias = (Symbol) stack.pop().object;
             Vocabulary.getCurrent().alias(alias.symbol,new JavaType(Class.forName(type.symbol)));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Unable to alias type.",e);

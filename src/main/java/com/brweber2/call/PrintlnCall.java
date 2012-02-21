@@ -21,7 +21,7 @@ public class PrintlnCall extends Invoke {
 
     @Override
     protected List getOutputs(Stack stack) {
-        Object object = stack.pop();
+        Object object = stack.pop().object;
         System.out.println("Hello " + object + "!");
         return Collections.emptyList();
     }

@@ -37,7 +37,7 @@ public class Set extends Invoke {
         else
         {
             stack.pop(); // ignore the type
-            name = (Var) stack.pop();
+            name = (Var) stack.pop().object;
         }
         Object object = stack.pop();
         stack.set(name.var,object);

@@ -5,22 +5,25 @@ import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.lex.Symbol;
+import com.brweber2.type.CheckedType;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
 public class IdentityCall implements Call {
-    
+
+    private CheckedType type;
     private Object object;
 
-    public IdentityCall(Object object) {
+    public IdentityCall(CheckedType type, Object object) {
+        this.type = type;
         this.object = object;
     }
 
     @Override
     public void invoke(Stack stack) {
-        stack.push(object);
+        stack.push(type,object);
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.brweber2.call.IdentityCall;
 import com.brweber2.call.Literal;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Var;
+import com.brweber2.type.JavaType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,23 +139,23 @@ public class TransformAst {
         }
         else if ( o instanceof Symbol )
         {
-            return new IdentityCall(o);
+            return new IdentityCall(new JavaType(Symbol.class),o);
         }
         else if ( o instanceof Var)
         {
-            return new IdentityCall(o);
+            return new IdentityCall(new JavaType(Var.class),o);
         }
         else if ( o instanceof Block)
         {
-            return new IdentityCall(o);
+            return new IdentityCall(new JavaType(Block.class),o);
         }
         else if ( o instanceof Items )
         {
-            return new IdentityCall(o);
+            return new IdentityCall(new JavaType(Items.class),o);
         }
         else if ( o instanceof StackEffect )
         {
-            return new IdentityCall(o);
+            return new IdentityCall(new JavaType(StackEffect.class),o);
         }
         else
         {

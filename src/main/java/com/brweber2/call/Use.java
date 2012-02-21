@@ -16,9 +16,9 @@ public class Use implements Call {
     @Override
     public void invoke(Stack stack) {
         // from <vocab> :use [<words>] .
-        Items items = (Items) stack.pop();
-        Symbol vocab = (Symbol) stack.pop();
-        Symbol from = (Symbol) stack.pop();
+        Items items = (Items) stack.pop().object;
+        Symbol vocab = (Symbol) stack.pop().object;
+        Symbol from = (Symbol) stack.pop().object;
         if ( !"from".equals(from.symbol) )
         {
             throw new RuntimeException("Invalid use statement! (from is not in the correct place)");
