@@ -1,5 +1,6 @@
 package com.brweber2.transform;
 
+import com.brweber2.lex.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.type.CheckedType;
 import com.brweber2.ast.Statement;
@@ -7,6 +8,7 @@ import com.brweber2.call.Set;
 import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,11 +29,17 @@ public class SetTransformer implements StatementTransformer {
             throw new RuntimeException("The var to set must be of type Var and not " + statement.getPieces().get(1) );
         }
         Object o = statement.getPieces().get(2);
-        if ( !(o instanceof String))
+        if ( !(o instanceof Symbol))
         {
-            throw new RuntimeException("The type must be specified as a string.");
+            throw new RuntimeException("The type must be specified as a symbol.");
         }
-        CheckedType type = TypeSystem.findType((String) o);
-        return Arrays.<Call>asList(new Set(type));
+        Symbol typeSymbol = (Symbol) o;
+        CheckedType type = TypeSystem.findType(typeSymbol.symbol);
+        List<Call> calls = new ArrayList<Call>();
+        calls.add( TransformAst.transformArg( statement.getPieces().get(0)));
+        calls.add( TransformAst.transformArg( statement.getPieces().get(1)));
+        calls.add( TransformAst.transformArg( statement.getPieces().get(2)));
+        calls.add( new Set(type) );
+        return calls;
     }
 }

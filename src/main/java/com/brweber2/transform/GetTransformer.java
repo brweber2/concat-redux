@@ -1,5 +1,6 @@
 package com.brweber2.transform;
 
+import com.brweber2.lex.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.type.CheckedType;
 import com.brweber2.ast.Statement;
@@ -7,6 +8,7 @@ import com.brweber2.call.Get;
 import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,11 +31,18 @@ public class GetTransformer implements StatementTransformer {
             throw new RuntimeException("Get must take a var! " + o + " is not acceptable.");
         }
         Object t = statement.getPieces().get(1);
-        if ( !(t instanceof String) )
+        if ( !(t instanceof Symbol) )
         {
-            throw new RuntimeException("You must specify a type for a 'get'.");
+            throw new RuntimeException("You must specify a type symbol for a 'get'.");
         }
-        CheckedType type = TypeSystem.findType((String) t);
-        return Arrays.<Call>asList(new Get(type));
+        Symbol typeSymbol = (Symbol) t;
+        CheckedType type = TypeSystem.findType(typeSymbol.symbol);
+        
+        List<Call> calls = new ArrayList<Call>();
+        calls.add( TransformAst.transformArg( statement.getPieces().get(0)));
+        calls.add( TransformAst.transformArg( statement.getPieces().get(1)));
+        calls.add( new Get(type) );
+        
+        return calls;
     }
 }

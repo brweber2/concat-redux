@@ -1,5 +1,6 @@
 package com.brweber2.call;
 
+import com.brweber2.lex.Symbol;
 import com.brweber2.run.Invoke;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class Get extends Invoke {
     public Get(CheckedType type) {
-        super(Arrays.<CheckedType>asList(new JavaType(String.class)), Arrays.asList(type));
+        super(Arrays.<CheckedType>asList(new JavaType(Var.class),new JavaType(Symbol.class)), Arrays.asList(type));
     }
 
     @Override

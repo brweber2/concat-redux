@@ -24,7 +24,7 @@ public class Set extends Invoke {
     }
 
     public Set(CheckedType type) {
-        super(Arrays.<CheckedType>asList(new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
+        super(Arrays.<CheckedType>asList(new JavaType(Object.class),new JavaType(Var.class), type), Collections.<CheckedType>emptyList());
     }
 
     @Override
