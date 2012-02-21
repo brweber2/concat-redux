@@ -2,7 +2,6 @@ package com.brweber2.type;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.run.Call;
-import com.brweber2.type.CheckedType;
 
 import java.util.ArrayList;
 import java.util.List;

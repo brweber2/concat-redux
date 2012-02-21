@@ -2,7 +2,6 @@ package com.brweber2.run;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.type.CheckedType;
-
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public class Invoke implements Call {
         }
         for (int i = 0; i < stackEffect.getInputTypes().size(); i++ )
         {
-            stack.push( thisStack.peek(i) );
+            stack.push( thisStack.pop() );
         }
         List outputs = getOutputs(stack);
         if ( stackEffect.getOutputTypes().size() > outputs.size() )
