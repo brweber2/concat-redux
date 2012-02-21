@@ -1,28 +1,33 @@
 package com.brweber2.call;
 
-import com.brweber2.run.Invoke;
+import com.brweber2.ast.StackEffect;
+import com.brweber2.lex.Symbol;
+import com.brweber2.run.Call;
+import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
-import com.brweber2.type.CheckedType;
-import com.brweber2.type.JavaType;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class PrintlnCall extends Invoke {
+public class PrintlnCall implements Call {
 
-    public PrintlnCall() {
-        super(Arrays.<CheckedType>asList(new JavaType(String.class)), Collections.<CheckedType>emptyList());
+    @Override
+    public void invoke(Stack stack) {
+        Object object = stack.pop().object;
+        System.out.println("Hello " + object + "!");
     }
 
     @Override
-    protected List getOutputs(Stack stack) {
-        Object object = stack.pop().object;
-        System.out.println("Hello " + object + "!");
-        return Collections.emptyList();
+    public StackEffect getStackEffect() {
+        StackEffect stackEffect = new StackEffect();
+        stackEffect.add(new Symbol(Object.class.getName()));
+        stackEffect.addArrow();
+        return stackEffect;
+    }
+
+    @Override
+    public Instructions getInstructions() {
+        return new Instructions();
     }
 }

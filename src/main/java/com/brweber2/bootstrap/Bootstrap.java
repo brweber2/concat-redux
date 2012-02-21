@@ -18,6 +18,7 @@ import com.brweber2.vocab.Vocabulary;
 public class Bootstrap {
     public static void bootstrap()
     {
+        Vocabulary.setVocab("kernel");
         Vocabulary.getCurrent().register("vocab", new VocabCall() );
         Vocabulary.getCurrent().register("alias", new TypeAlias() );
         Vocabulary.getCurrent().register("use", new Use() );
@@ -26,5 +27,6 @@ public class Bootstrap {
         Vocabulary.getCurrent().register("get", new Get() );
         Vocabulary.getCurrent().register("set", new Set() );
         Vocabulary.getCurrent().register("println", new PrintlnCall() );
+        Vocabulary.setVocab("default");
     }
 }

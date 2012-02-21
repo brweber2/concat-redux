@@ -45,29 +45,6 @@ public class TransformAst {
     private List<Call> transformStatement(Statement statement) {
         return getStatementTransformer(statement).transform(statement);
     }
-    
-    private Statement replaceLiterals(Statement statement)
-    {
-        Statement mod = new Statement();
-        for (Object o : statement.getPieces()) 
-        {
-            if ( o instanceof NumberLiteral )
-            {
-                Number n = ((NumberLiteral)o).getNbr();
-                mod.add( new Literal<Number>(n,n.getClass()));
-            }
-            else if ( o instanceof StringLiteral )
-            {
-                String s= ((StringLiteral)o).getStr();
-                mod.add( new Literal<String>(s,String.class));
-            }
-            else
-            {
-                mod.add(o);
-            }
-        }
-        return mod;
-    }
 
     /**
      * define

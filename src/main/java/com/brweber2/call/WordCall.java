@@ -21,7 +21,12 @@ public class WordCall implements Call {
     
     private Call getCall()
     {
-        return Vocabulary.getCurrent().findWord(word); // todo memoize
+        Call wordCall = Vocabulary.getCurrent().findWord(word); // todo memoize
+        if ( wordCall == null )
+        {
+            throw new RuntimeException("No such word " + word + " found in scope.");
+        }
+        return wordCall;
     }
 
     @Override

@@ -49,7 +49,17 @@ public class Vocabulary {
 
     public Call findWord( String name )
     {
-        return words.get(name);
+        return findWord(name,true);
+    }
+
+    private Call findWord( String name, boolean lookInKernel )
+    {
+        Call result = words.get(name);
+        if ( result == null && lookInKernel )
+        {
+            return vocabs.get("kernel").findWord(name,false);
+        }
+        return result;
     }
 
     public void register( String name, Call word )
