@@ -1,38 +1,38 @@
 package com.brweber2.call;
 
+import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
-import com.brweber2.type.CheckedType;
-import com.brweber2.ast.StackEffect;
 import com.brweber2.type.JavaType;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class Literal<T> implements Call {
+public class StringLiteral implements Call {
+    
+    private String str;
 
-    protected T literal;
-    private Class<? extends T> c;
-    protected CheckedType type;
-
-    public Literal(T literal, Class<? extends T> c) {
-        this.literal = literal;
-        type = new JavaType(c);
-        this.c = c;
+    public StringLiteral(String str) {
+        this.str = str;
     }
 
     @Override
     public void invoke(Stack stack) {
-        stack.push( type, literal );
+        stack.push( new JavaType(String.class),str);
     }
 
     @Override
     public StackEffect getStackEffect() {
         StackEffect se = new StackEffect();
         se.addArrow();
-        se.add(new Symbol(c.getName()));
+        se.add(new Symbol(String.class.getName()));
         return se;
+    }
+
+    @Override
+    public String toString() {
+        return '"' + str + '"';
     }
 }

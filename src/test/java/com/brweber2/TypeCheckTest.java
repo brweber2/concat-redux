@@ -2,8 +2,9 @@ package com.brweber2;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Symbol;
-import com.brweber2.call.Literal;
+import com.brweber2.call.NumberLiteral;
 import com.brweber2.call.PrintlnCall;
+import com.brweber2.call.StringLiteral;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.StaticTypeChecker;
@@ -19,7 +20,7 @@ import java.math.BigInteger;
 public class TypeCheckTest {
     @Test
     public void typeCheckHelloWorld() throws InterruptedException {
-        Literal<String> str = new Literal<String>("World",String.class);
+        StringLiteral str = new StringLiteral("World");
         Call println = new PrintlnCall();
 
         StaticTypeChecker.check( str, println );
@@ -27,7 +28,7 @@ public class TypeCheckTest {
 
     @Test
     public void typeCheckInvalidHelloWorld() throws InterruptedException {
-        Literal<BigInteger> str = new Literal<BigInteger>(BigInteger.TEN,BigInteger.class);
+        NumberLiteral str = new NumberLiteral(BigInteger.TEN);
         Call println = new Call() {
             @Override
             public void invoke(Stack stack) {

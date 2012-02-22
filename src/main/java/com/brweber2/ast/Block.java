@@ -18,11 +18,19 @@ public class Block {
         statements.add( statement );
     }
 
-    public List<Statement> getStatements() {
-        return statements;
-    }
-
     public List<Call> getInstructions() {
         return TransformAst.transform(statements);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("{ " );
+        for (Call call : getInstructions()) {
+            str.append(call);
+            str.append(" ");
+        }
+        str.append(" }" );
+        return str.toString();
     }
 }

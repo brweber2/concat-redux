@@ -15,10 +15,9 @@ public class LookupTransformer implements StatementTransformer {
     @Override
     public List<Call> transform(Statement statement) {
         List<Call> calls = new ArrayList<Call>();
-        for (Object o : statement.getArgs()) {
-            calls.add( TransformAst.transformArg(o) );
+        for (Object o : statement.getPieces()) {
+            calls.add( TransformAst.transformPiece(o) );
         }
-        calls.add( new WordCall(statement) );
         return calls;
     }
 }

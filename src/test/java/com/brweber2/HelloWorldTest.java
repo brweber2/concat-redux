@@ -1,7 +1,7 @@
 package com.brweber2;
 
-import com.brweber2.call.Literal;
 import com.brweber2.call.PrintlnCall;
+import com.brweber2.call.StringLiteral;
 import com.brweber2.run.Call;
 import org.testng.annotations.Test;
 
@@ -13,7 +13,7 @@ public class HelloWorldTest {
     @Test
     public void testHelloWorld() throws InterruptedException {
         // define println function
-        Literal<String> str = new Literal<String>("World",String.class);
+        StringLiteral str = new StringLiteral("World");
         Call println = new PrintlnCall();
 
         Main.invoke(str, println);

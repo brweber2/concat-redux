@@ -2,6 +2,7 @@ package com.brweber2.transform;
 
 import com.brweber2.ast.Symbol;
 import com.brweber2.ast.Var;
+import com.brweber2.call.WordCall;
 import com.brweber2.run.Call;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.Items;
@@ -10,7 +11,6 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.call.IdentityCall;
-import com.brweber2.call.Literal;
 import com.brweber2.type.JavaType;
 
 import java.util.ArrayList;
@@ -93,19 +93,60 @@ public class TransformAst {
         }
     }
 
+    /**
+     * @deprecated ???
+     * @param o
+     * @return
+     */
     public static Call transformArg(Object o) {
         if ( o instanceof NumberLiteral )
         {
             Number nbr = ((NumberLiteral)o).getNbr();
-            return new Literal<Number>(nbr,nbr.getClass());
+            return new com.brweber2.call.NumberLiteral(nbr);
         }
         else if ( o instanceof StringLiteral )
         {
-            return new Literal<String>(((StringLiteral)o).getStr(),String.class);
+            return new com.brweber2.call.StringLiteral(((StringLiteral)o).getStr());
         }
         else if ( o instanceof Symbol)
         {
             return new IdentityCall(new JavaType(Symbol.class),o);
+        }
+        else if ( o instanceof Var)
+        {
+            return new IdentityCall(new JavaType(Var.class),o);
+        }
+        else if ( o instanceof Block)
+        {
+            return new IdentityCall(new JavaType(Block.class),o);
+        }
+        else if ( o instanceof Items )
+        {
+            return new IdentityCall(new JavaType(Items.class),o);
+        }
+        else if ( o instanceof StackEffect )
+        {
+            return new IdentityCall(new JavaType(StackEffect.class),o);
+        }
+        else
+        {
+            throw new RuntimeException("Unknown ast type " + o );
+        }
+    }
+
+    public static Call transformPiece(Object o) {
+        if ( o instanceof NumberLiteral )
+        {
+            Number nbr = ((NumberLiteral)o).getNbr();
+            return new com.brweber2.call.NumberLiteral(nbr);
+        }
+        else if ( o instanceof StringLiteral )
+        {
+            return new com.brweber2.call.StringLiteral(((StringLiteral)o).getStr());
+        }
+        else if ( o instanceof Symbol)
+        {
+            return new WordCall(((Symbol)o).symbol);
         }
         else if ( o instanceof Var)
         {

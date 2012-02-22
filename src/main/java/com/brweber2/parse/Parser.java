@@ -119,13 +119,18 @@ public class Parser {
         {
             token = tokens.getNextToken();
         }
-        while ( token != Token.BRACE_CLOSE )
+        while ( true )
         {
             if ( token == Token.EOF )
             {
                 throw new RuntimeException("Unexpected EOF while reading a block on line " + token.getLineNumber() );
             }
-            block.add( parseStatement( token, tokens ) );
+            Statement st = parseStatement( token, tokens, Token.DOT, Token.BRACE_CLOSE );
+            block.add( st );
+            if ( st.getTerminatingToken() == Token.BRACE_CLOSE )
+            {
+                break;
+            }
             token = tokens.getNextToken();
         }
         return block;
@@ -146,8 +151,13 @@ public class Parser {
                 throw new RuntimeException("Unexpected EOF while reading a items on line " + token.getLineNumber() );
             }
             Statement statement = parseStatement(token, tokens, Token.COMMA, Token.BRACKET_CLOSE );
-            for (Object o : statement.getPieces()) {
-                items.add( o );
+            if ( statement.getPieces().size() > 1 )
+            {
+                items.add( statement.getPieces() );
+            }
+            else
+            {
+                items.add( statement.getPieces().get(0) );
             }
             if ( statement.getTerminatingToken() == Token.BRACKET_CLOSE )
             {

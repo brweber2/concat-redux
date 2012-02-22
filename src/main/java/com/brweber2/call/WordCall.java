@@ -14,8 +14,8 @@ public class WordCall implements Call {
     
     private String word;
     
-    public WordCall(Statement statement) {
-        word = statement.getName();
+    public WordCall(String word) {
+        this.word = word;
     }
     
     private Call getCall()
@@ -39,4 +39,8 @@ public class WordCall implements Call {
         return getCall().getStackEffect();
     }
 
+    @Override
+    public String toString() {
+        return word;
+    }
 }
