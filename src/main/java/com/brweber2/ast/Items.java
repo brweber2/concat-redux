@@ -1,8 +1,5 @@
 package com.brweber2.ast;
 
-import com.brweber2.lex.SymbolToken;
-import com.brweber2.lex.VarToken;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +9,10 @@ import java.util.List;
  */
 public class Items {
     
-    private List items = new ArrayList();
+    private List<Object> items = new ArrayList<Object>();
     
-    public void add(Symbol token) {
-        items.add( token );
-    }
-
-    public void add(Var token) {
-        items.add( token );
-    }
-
-    public void add(Block block) {
-        items.add( block );
-    }
-
-    public void add(Items items) {
-        this.items.add( items );
+    public void add(Object object) {
+        items.add( object );
     }
 
     public List getItems() {

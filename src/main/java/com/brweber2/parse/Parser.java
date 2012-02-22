@@ -43,11 +43,17 @@ public class Parser {
 
     public Statement parseStatement( LexToken token, TokenStream tokens )
     {
+        return parseStatement(token,tokens,Token.DOT);
+    }
+
+
+    public Statement parseStatement( LexToken token, TokenStream tokens, LexToken terminatingToken )
+    {
         Statement statement = new Statement();
         // parse until a period
         // limit to one colon per statement???
         // symbol | var | colon | list | lazy | stack effect
-        while ( token != Token.DOT )
+        while ( token != terminatingToken )
         {
             if ( token == Token.EOF )
             {
@@ -127,24 +133,9 @@ public class Parser {
             {
                 throw new RuntimeException("Unexpected EOF while reading a items on line " + token.getLineNumber() );
             }
-            if ( token instanceof SymbolToken)
-            {
-                items.add( new Symbol( (SymbolToken) token ) );
-            }
-            else if ( token instanceof VarToken)
-            {
-                items.add( new Var( (VarToken) token ) );
-            }
-            else
-            {
-                if ( token == Token.BRACE_OPEN )
-                {
-                    items.add( parseLazy( token, tokens ) );
-                }
-                else if ( token == Token.BRACKET_OPEN )
-                {
-                    items.add( parseList( token, tokens ) );
-                }
+            Statement statement = parseStatement(token, tokens, Token.COMMA);
+            for (Object o : statement.getPieces()) {
+                items.add( o );
             }
             token = tokens.getNextToken();
         }
