@@ -1,7 +1,6 @@
 package com.brweber2.call;
 
 import com.brweber2.run.Call;
-import com.brweber2.run.Instructions;
 import com.brweber2.run.Invoke;
 import com.brweber2.run.Stack;
 import com.brweber2.ast.Block;
@@ -36,10 +35,5 @@ public class DefineCall implements Call {
         stackEffect.add(new Symbol(Block.class.getName()));
         stackEffect.addArrow();
         return stackEffect;
-    }
-
-    @Override
-    public Instructions getInstructions() {
-        return new Instructions();
     }
 }

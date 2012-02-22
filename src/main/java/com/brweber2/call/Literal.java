@@ -1,7 +1,6 @@
 package com.brweber2.call;
 
 import com.brweber2.run.Call;
-import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
 import com.brweber2.ast.StackEffect;
@@ -35,10 +34,5 @@ public class Literal<T> implements Call {
         se.addArrow();
         se.add(new Symbol(c.getName()));
         return se;
-    }
-
-    @Override
-    public Instructions getInstructions() {
-        return new Instructions();
     }
 }

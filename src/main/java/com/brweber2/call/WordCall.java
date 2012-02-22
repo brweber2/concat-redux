@@ -1,7 +1,6 @@
 package com.brweber2.call;
 
 import com.brweber2.run.Call;
-import com.brweber2.run.Instructions;
 import com.brweber2.run.Stack;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
@@ -40,8 +39,4 @@ public class WordCall implements Call {
         return getCall().getStackEffect();
     }
 
-    @Override
-    public Instructions getInstructions() {
-        return new Instructions();
-    }
 }

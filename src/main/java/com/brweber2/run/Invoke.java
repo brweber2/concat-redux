@@ -31,10 +31,10 @@ public class Invoke implements Call {
         this.stackEffect = stackEffect;
     }
 
-    public Instructions getInstructions() {
-        return instructions;
-    }
-
+//    public Instructions getInstructions() {
+//        return instructions;
+//    }
+//
     public void setInstructions(Instructions ... instructions) {
         if ( this.instructions == null )
         {

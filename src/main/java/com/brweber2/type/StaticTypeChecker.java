@@ -37,9 +37,6 @@ public class StaticTypeChecker {
                 throw new RuntimeException("Type check error! " + typeFromStack + " was not cool for " + inputType);
             }
         }
-        for (Call nextCall : call.getInstructions().getCalls()) {
-            checkCall( typeStack, nextCall );
-        }
         for (CheckedType outputType : stackEffect.getOutputTypes()) {
             typeStack.add(outputType);
         }
