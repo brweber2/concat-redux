@@ -1,6 +1,6 @@
 package com.brweber2.ast;
 
-import com.brweber2.run.Instructions;
+import com.brweber2.run.Call;
 import com.brweber2.transform.TransformAst;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Block {
         return statements;
     }
 
-    public Instructions getInstructions() {
-        return new Instructions(TransformAst.transform(statements));
+    public List<Call> getInstructions() {
+        return TransformAst.transform(statements);
     }
 }

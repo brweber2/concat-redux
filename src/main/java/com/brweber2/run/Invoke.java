@@ -2,6 +2,8 @@ package com.brweber2.run;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.type.CheckedType;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,37 +14,12 @@ public class Invoke implements Call {
     
     protected StackEffect stackEffect;
     
-    protected Instructions instructions = new Instructions();
-
-    protected Invoke( List<CheckedType> inputTypes, List<CheckedType> outputTypes )
-    {
-        StackEffect se = new StackEffect();
-        for (CheckedType inputType : inputTypes) {
-            se.add(inputType.toSymbol());
-        }
-        se.addArrow();
-        for (CheckedType outputType : outputTypes) {
-            se.add(outputType.toSymbol());
-        }
-        this.stackEffect = se;
-    }
+    protected List<Call> calls = new ArrayList<Call>();
     
-    public Invoke(StackEffect stackEffect) {
+    public Invoke(StackEffect stackEffect,List<Call> instructions) {
         this.stackEffect = stackEffect;
-    }
-
-//    public Instructions getInstructions() {
-//        return instructions;
-//    }
-//
-    public void setInstructions(Instructions ... instructions) {
-        if ( this.instructions == null )
-        {
-            this.instructions = new Instructions();
-        }
-        for (Instructions instruction : instructions) {
-            this.instructions.getCalls().addAll(instruction.getCalls());
-        }
+        this.calls = stackEffect.getInstructions();
+        this.calls.addAll(instructions);
     }
 
     public void invoke(Stack thisStack)
@@ -58,13 +35,13 @@ public class Invoke implements Call {
             Stack.TypeObject typeObject = thisStack.pop();
             stack.push( typeObject.type, typeObject.object );
         }
-        List outputs = getOutputs(stack);
-        if ( stackEffect.getOutputTypes().size() > outputs.size() )
+        getOutputs(stack);
+        if ( stackEffect.getOutputTypes().size() > stack.size() )
         {
             throw new RuntimeException("Wrong number of outputs!");
         }
-        int i = outputs.size();
-        for (Object output : outputs) {
+        int i = stack.size();
+        for (Object output : stack.popAll()) {
             CheckedType type = stackEffect.getOutputTypes().get(i-1);
             thisStack.push(type, output);
             i--;
@@ -76,8 +53,10 @@ public class Invoke implements Call {
         return stackEffect;
     }
 
-    protected List getOutputs( Stack stack )
+    protected void getOutputs( Stack stack )
     {
-        return instructions.execute(stack);
+        for (Call call : calls) {
+            call.invoke(stack);
+        }
     }
 }

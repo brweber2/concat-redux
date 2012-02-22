@@ -1,9 +1,7 @@
 package com.brweber2.ast;
 
 import com.brweber2.run.Call;
-import com.brweber2.run.Instructions;
 import com.brweber2.type.CheckedType;
-import com.brweber2.call.Set;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
@@ -98,7 +96,7 @@ public class StackEffect {
         return types;
     }
 
-    public Instructions getInstructions() {
+    public List<Call> getInstructions() {
         List<Call> calls = new ArrayList<Call>();
         Var var = null;
         for (Object o : beforeArrow) {
@@ -121,7 +119,7 @@ public class StackEffect {
                 throw new RuntimeException("Invalid stack effect " + this  + " because a non symbol/var was found.");
             }
         }
-        return new Instructions(calls);
+        return calls;
     }
 
     @Override

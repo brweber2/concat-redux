@@ -15,9 +15,7 @@ import com.brweber2.vocab.Vocabulary;
 public class DefineCall implements Call {
     
     public DefineCall(Symbol name, StackEffect stackEffect, Block block) {
-        Invoke invoke = new Invoke(stackEffect);
-        invoke.setInstructions(stackEffect.getInstructions(), block.getInstructions());
-        Vocabulary.getCurrent().register(name.symbol,invoke);
+        Vocabulary.getCurrent().register(name.symbol,new Invoke(stackEffect, block.getInstructions()));
     }
 
     @Override
