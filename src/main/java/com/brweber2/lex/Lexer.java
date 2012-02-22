@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author brweber2
@@ -129,33 +130,77 @@ public class Lexer {
         }
     }
 
-    private LexToken readNumber() throws IOException {
-        int i = reader.read();
-        switch (i)
+    private LexToken readString() throws IOException {
+        int doubleQuote = reader.read();
+        int token = 0;
+        StringBuilder str = new StringBuilder();
+        while ( token != doubleQuote )
         {
-            case 48:
-                return Token.ZERO;
-            case 49:
-                return Token.ONE;
-            case 50:
-                return Token.TWO;
-            case 51:
-                return Token.THREE;
-            case 52:
-                return Token.FOUR;
-            case 53:
-                return Token.FIVE;
-            case 54:
-                return Token.SIX;
-            case 55:
-                return Token.SEVEN;
-            case 56:
-                return Token.EIGHT;
-            case 57:
-                return Token.NINE;
-            default:
-                throw new RuntimeException("Invalid number token " + i + ".");
+            str.append((char)token);
+            token = reader.read();
         }
+        return new StringToken(str.toString(),reader.getLineNumber());
+    }
+
+    private LexToken readNumber() throws IOException {
+        List<Integer> beforeDot = new ArrayList<Integer>();
+        List<Integer> afterDot = new ArrayList<Integer>();
+        List<Integer> list = beforeDot;
+        DONE:
+        while ( true )
+        {
+            reader.mark(1);
+            int i = reader.read();
+            switch (i)
+            {
+                case -1:
+                    reader.reset();
+                    break DONE;
+                case 46:
+                    if ( list == afterDot )
+                    {
+                        reader.reset();
+                        break DONE;
+                    }
+                    list = afterDot;
+                    break;
+                case 48:
+                    list.add(0);
+                    break;
+                case 49:
+                    list.add(1);
+                    break;
+                case 50:
+                    list.add(2);
+                    break;
+                case 51:
+                    list.add(3);
+                    break;
+                case 52:
+                    list.add(4);
+                    break;
+                case 53:
+                    list.add(5);
+                    break;
+                case 54:
+                    list.add(6);
+                    break;
+                case 55:
+                    list.add(7);
+                    break;
+                case 56:
+                    list.add(8);
+                    break;
+                case 57:
+                    list.add(9);
+                    break;
+                default:
+                    reader.reset();
+                    break DONE;
+            }
+        }
+
+        return new NumberToken(beforeDot,afterDot,reader.getLineNumber());
     }
 
     private LexToken readSymbol() throws IOException {
@@ -197,11 +242,6 @@ public class Lexer {
         reader.read();
         reader.read();
         return Token.ARROW.setLineNumber(reader.getLineNumber());
-    }
-
-    private LexToken readString() throws IOException {
-        reader.read();
-        return Token.DOUBLE_QUOTE.setLineNumber(reader.getLineNumber());
     }
 
     private LexToken readStackEffectEnd() throws IOException {

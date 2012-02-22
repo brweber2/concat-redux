@@ -1,6 +1,7 @@
 package com.brweber2.ast;
 
 import com.brweber2.lex.LexToken;
+import com.brweber2.lex.NumberToken;
 import com.brweber2.lex.Token;
 
 import java.math.BigDecimal;
@@ -14,6 +15,11 @@ import java.util.List;
 public class NumberLiteral {
     private Number nbr;
 
+    public NumberLiteral(NumberToken token)
+    {
+        this.nbr = token.number;
+    }
+    
     public NumberLiteral(Number nbr) {
         this.nbr = nbr;
     }

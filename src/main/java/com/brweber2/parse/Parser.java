@@ -7,6 +7,8 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.lex.LexToken;
+import com.brweber2.lex.NumberToken;
+import com.brweber2.lex.StringToken;
 import com.brweber2.lex.Symbol;
 import com.brweber2.lex.Token;
 import com.brweber2.lex.TokenStream;
@@ -61,6 +63,14 @@ public class Parser {
             {
                 statement.addColon();
             }
+            else if ( token instanceof StringToken )
+            {
+                statement.add( new StringLiteral( (StringToken) token ) );
+            }
+            else if ( token instanceof NumberToken)
+            {
+                statement.add( new NumberLiteral( (NumberToken) token ) );
+            }
             else
             {
                 if ( token == Token.PAREN_OPEN )
@@ -75,81 +85,10 @@ public class Parser {
                 {
                     statement.add( parseList( token, tokens ) );
                 }
-                else if ( token == Token.DOUBLE_QUOTE )
-                {
-                    statement.add( parseString( token, tokens ) );
-                }
-                else if ( isNumberToken(token) )
-                {
-                    statement.add( parseNumber( token, tokens ) );
-                }
             }
             token = tokens.getNextToken();
         }
         return statement;
-    }
-
-    private StringLiteral parseString(LexToken token, TokenStream tokens) {
-        StringBuilder str = new StringBuilder();
-        if ( token == Token.DOUBLE_QUOTE )
-        {
-            token = tokens.getNextToken();
-        }
-        while ( token != Token.DOUBLE_QUOTE )
-        {
-            if ( token == Token.EOF )
-            {
-                throw new RuntimeException("Found EOF while reading a string.");
-            }
-            // todo this really limits the contents of strings....
-            if ( token instanceof Symbol )
-            {
-                str.append(((Symbol)token).symbol);
-            }
-            token = tokens.getNextToken();
-        }
-        return new StringLiteral(str.toString());
-    }
-
-    private boolean isNumberToken(LexToken token)
-    {
-        return ( token == Token.ZERO ||
-                token == Token.ONE ||
-                token == Token.TWO ||
-                token == Token.THREE ||
-                token == Token.FOUR ||
-                token == Token.FIVE ||
-                token == Token.SIX ||
-                token == Token.SEVEN ||
-                token == Token.EIGHT ||
-                token == Token.NINE );
-    }
-
-    private NumberLiteral parseNumber(LexToken token, TokenStream tokens) {
-        boolean decimalFound = false;
-        List<LexToken> numberTokens = new ArrayList<LexToken>();
-        while ( isOkForNumberToken(decimalFound,token) )
-        {
-            if ( token == Token.EOF )
-            {
-                break;
-            }
-            if ( token == Token.DOT )
-            {
-                decimalFound = true;
-            }
-            numberTokens.add(token);
-            token = tokens.getNextToken(); 
-        }
-        return new NumberLiteral(numberTokens);
-    }
-
-    private boolean isOkForNumberToken(boolean decimalAlreadyFound, LexToken token) {
-        if ( decimalAlreadyFound )
-        {
-            return isNumberToken(token);
-        }
-        return token == Token.DOT || isNumberToken(token);
     }
 
     public Block parseLazy( LexToken token, TokenStream tokens )
