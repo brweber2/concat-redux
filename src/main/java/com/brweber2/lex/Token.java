@@ -15,18 +15,7 @@ public enum Token implements LexToken {
     DOT,
     EOF,
     PAREN_OPEN,
-    PAREN_CLOSE,
-    DOUBLE_QUOTE,
-    ZERO,
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE;
+    PAREN_CLOSE;
 
     private int lineNumber;
     

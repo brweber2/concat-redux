@@ -6,13 +6,15 @@ import com.brweber2.ast.NumberLiteral;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
+import com.brweber2.ast.Symbol;
+import com.brweber2.ast.Var;
 import com.brweber2.lex.LexToken;
 import com.brweber2.lex.NumberToken;
 import com.brweber2.lex.StringToken;
-import com.brweber2.lex.Symbol;
+import com.brweber2.lex.SymbolToken;
 import com.brweber2.lex.Token;
 import com.brweber2.lex.TokenStream;
-import com.brweber2.lex.Var;
+import com.brweber2.lex.VarToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +53,13 @@ public class Parser {
             {
                 throw new RuntimeException("Unexpected EOF while reading a statement on line " + token.getLineNumber() );
             }
-            if ( token instanceof Symbol )
+            if ( token instanceof SymbolToken)
             {
-                statement.add( (Symbol) token );
+                statement.add( new Symbol( (SymbolToken) token ) );
             }
-            else if ( token instanceof Var )
+            else if ( token instanceof VarToken)
             {
-                statement.add((Var) token);
+                statement.add( new Var( (VarToken)token ) );
             }
             else if ( token == Token.COLON )
             {
@@ -125,13 +127,13 @@ public class Parser {
             {
                 throw new RuntimeException("Unexpected EOF while reading a items on line " + token.getLineNumber() );
             }
-            if ( token instanceof Symbol )
+            if ( token instanceof SymbolToken)
             {
-                items.add( (Symbol) token );
+                items.add( new Symbol( (SymbolToken) token ) );
             }
-            else if ( token instanceof Var )
+            else if ( token instanceof VarToken)
             {
-                items.add( (Var) token );
+                items.add( new Var( (VarToken) token ) );
             }
             else
             {
@@ -163,13 +165,13 @@ public class Parser {
             {
                 throw new RuntimeException("Unexpected EOF while reading a stack effect on line " + token.getLineNumber() );
             }
-            if ( token instanceof Symbol )
+            if ( token instanceof SymbolToken)
             {
-                stackEffect.add( (Symbol) token );
+                stackEffect.add( new Symbol( (SymbolToken) token ) );
             }
-            else if ( token instanceof Var )
+            else if ( token instanceof VarToken)
             {
-                stackEffect.add( (Var) token );
+                stackEffect.add( new Var( (VarToken) token ) );
             }
             else if ( token == Token.ARROW )
             {

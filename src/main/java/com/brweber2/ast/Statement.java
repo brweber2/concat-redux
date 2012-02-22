@@ -1,8 +1,5 @@
 package com.brweber2.ast;
 
-import com.brweber2.lex.Symbol;
-import com.brweber2.lex.Var;
-
 import java.util.ArrayList;
 import java.util.List;
 

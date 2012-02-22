@@ -24,66 +24,12 @@ public class NumberLiteral {
         this.nbr = nbr;
     }
 
-    public NumberLiteral(List<LexToken> numberTokens) {
-        StringBuilder str = new StringBuilder();
-        for (LexToken numberToken : numberTokens) {
-            if ( numberToken == Token.DOT )
-            {
-                str.append(".");
-            }
-            else if ( numberToken == Token.ZERO )
-            {
-                str.append("0");
-            }
-            else if ( numberToken == Token.ONE )
-            {
-                str.append("1");
-            }
-            else if ( numberToken == Token.TWO )
-            {
-                str.append("2");
-            }
-            else if ( numberToken == Token.THREE )
-            {
-                str.append("3");
-            }
-            else if ( numberToken == Token.FOUR )
-            {
-                str.append("4");
-            }
-            else if ( numberToken == Token.FIVE )
-            {
-                str.append("5");
-            }
-            else if ( numberToken == Token.SIX )
-            {
-                str.append("6");
-            }
-            else if ( numberToken == Token.SEVEN )
-            {
-                str.append("7");
-            }
-            else if ( numberToken == Token.EIGHT )
-            {
-                str.append("8");
-            }
-            else if ( numberToken == Token.NINE )
-            {
-                str.append("9");
-            }
-        }
-        String n = str.toString();
-        if ( n.contains("." ) )
-        {
-            nbr = new BigDecimal(n);
-        }
-        else
-        {
-            nbr = new BigInteger(n);
-        }
-    }
-
     public Number getNbr() {
         return nbr;
+    }
+
+    @Override
+    public String toString() {
+        return nbr.toString();
     }
 }

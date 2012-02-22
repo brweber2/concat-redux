@@ -21,4 +21,9 @@ public class StringLiteral {
     public String getStr() {
         return str;
     }
+
+    @Override
+    public String toString() {
+        return '"' + str + '"';
+    }
 }

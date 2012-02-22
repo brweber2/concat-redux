@@ -4,31 +4,31 @@ package com.brweber2.lex;
  * @author brweber2
  *         Copyright: 2012
  */
-public class Var implements LexToken {
+public class VarToken implements LexToken {
     
     public final String var;
     public int lineNumber;
 
-    public Var(String var)
+    public VarToken(String var)
     {
         this.var = var;
         this.lineNumber = -1;
     }
 
-    public Var(String var, int lineNumber)
+    public VarToken(String var, int lineNumber)
     {
         this.var = var;
         this.lineNumber = lineNumber;
     }
     
-    public Var(Symbol symbol, int lineNumber) {
+    public VarToken(SymbolToken symbol, int lineNumber) {
         this.var = symbol.symbol;
         this.lineNumber = lineNumber;
     }
 
     @Override
     public String toString() {
-        return "Var{" +
+        return "VarToken{" +
                 "var='" + var + '\'' +
                 '}';
     }
@@ -38,7 +38,7 @@ public class Var implements LexToken {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Var var1 = (Var) o;
+        VarToken var1 = (VarToken) o;
 
         if (!var.equals(var1.var)) return false;
 

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * @author brweber2
@@ -222,7 +221,7 @@ public class Lexer {
             c = reader.read();
         }
         reader.reset();
-        return new Symbol(symbol,reader.getLineNumber());
+        return new SymbolToken(symbol,reader.getLineNumber());
     }
 
     private boolean isSymbolChar(int c) {
@@ -235,7 +234,7 @@ public class Lexer {
 
     private LexToken readNamedVar() throws IOException {
         reader.read(); // discard the '@'
-        return new Var( (Symbol) readSymbol(), reader.getLineNumber() );
+        return new VarToken( (SymbolToken) readSymbol(), reader.getLineNumber() );
     }
 
     private LexToken readArrow() throws IOException {
@@ -303,7 +302,7 @@ public class Lexer {
             return false;
         }
         reader.mark(2);
-        int dash = reader.read();
+        reader.read(); // discard the dash
         int i = reader.read();
         reader.reset();
         return i == '>';

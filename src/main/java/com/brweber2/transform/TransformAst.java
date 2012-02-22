@@ -1,5 +1,7 @@
 package com.brweber2.transform;
 
+import com.brweber2.ast.Symbol;
+import com.brweber2.ast.Var;
 import com.brweber2.run.Call;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.Items;
@@ -9,8 +11,6 @@ import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.call.IdentityCall;
 import com.brweber2.call.Literal;
-import com.brweber2.lex.Symbol;
-import com.brweber2.lex.Var;
 import com.brweber2.type.JavaType;
 
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class TransformAst {
         {
             return new Literal<String>(((StringLiteral)o).getStr(),String.class);
         }
-        else if ( o instanceof Symbol )
+        else if ( o instanceof Symbol)
         {
             return new IdentityCall(new JavaType(Symbol.class),o);
         }

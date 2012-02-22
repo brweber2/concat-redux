@@ -1,8 +1,8 @@
 package com.brweber2.vocab;
 
+import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.type.CheckedType;
-import com.brweber2.lex.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;

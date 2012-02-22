@@ -1,9 +1,9 @@
 package com.brweber2;
 
 import com.brweber2.ast.StackEffect;
+import com.brweber2.ast.Symbol;
 import com.brweber2.call.Literal;
 import com.brweber2.call.PrintlnCall;
-import com.brweber2.lex.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.StaticTypeChecker;

@@ -1,9 +1,9 @@
 package com.brweber2.ast;
 
+import com.brweber2.lex.SymbolToken;
+import com.brweber2.lex.VarToken;
 import com.brweber2.run.Call;
 import com.brweber2.type.CheckedType;
-import com.brweber2.lex.Symbol;
-import com.brweber2.lex.Var;
 import com.brweber2.type.TypeSystem;
 
 import java.util.ArrayList;
@@ -57,11 +57,11 @@ public class StackEffect {
         }
         List<CheckedType> types = new ArrayList<CheckedType>();
         for (Object o : beforeArrow) {
-            if ( o instanceof Symbol )
+            if ( o instanceof Symbol)
             {
                 types.add(TypeSystem.findType(((Symbol)o).symbol));
             }
-            else if ( o instanceof  Var )
+            else if ( o instanceof Var)
             {
                 // ok
             }
@@ -80,11 +80,11 @@ public class StackEffect {
         }
         List<CheckedType> types = new ArrayList<CheckedType>();
         for (Object o : afterArrow) {
-            if ( o instanceof Symbol )
+            if ( o instanceof Symbol)
             {
                 types.add(TypeSystem.findType(((Symbol)o).symbol));
             }
-            else if ( o instanceof  Var )
+            else if ( o instanceof Var)
             {
                 // ok
             }
@@ -98,9 +98,9 @@ public class StackEffect {
 
     public List<Call> getInstructions() {
         List<Call> calls = new ArrayList<Call>();
-        Var var = null;
+        VarToken var = null;
         for (Object o : beforeArrow) {
-            if ( o instanceof Symbol )
+            if ( o instanceof Symbol)
             {
                 if ( var != null )
                 {
@@ -110,9 +110,9 @@ public class StackEffect {
                 }
                 var = null;
             }
-            else if ( o instanceof  Var )
+            else if ( o instanceof Var)
             {
-                var = (Var) o;
+                var = (VarToken) o;
             }
             else
             {
@@ -124,10 +124,17 @@ public class StackEffect {
 
     @Override
     public String toString() {
-        return "StackEffect{" +
-                "arrowCount=" + arrowCount +
-                ", beforeArrow=" + beforeArrow +
-                ", afterArrow=" + afterArrow +
-                '}';
+        StringBuilder str = new StringBuilder();
+        str.append("( ");
+        for (Object o : beforeArrow) {
+            str.append( o );
+            str.append( " " );
+        }
+        str.append("-> " );
+        for (Object o : afterArrow) {
+            str.append( o );
+            str.append( " " );
+        }
+        return str.toString();
     }
 }

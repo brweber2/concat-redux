@@ -6,24 +6,24 @@ import java.util.List;
  * @author brweber2
  *         Copyright: 2012
  */
-public class Symbol implements LexToken {
+public class SymbolToken implements LexToken {
     
     public final String symbol;
     private int lineNumber;
 
-    public Symbol(String symbol)
+    public SymbolToken(String symbol)
     {
         this.symbol = symbol;
         this.lineNumber = -1;
     }
 
-    public Symbol(String symbol, int lineNumber)
+    public SymbolToken(String symbol, int lineNumber)
     {
         this.symbol = symbol;
         this.lineNumber = lineNumber;
     }
     
-    public Symbol(List<Integer> symbol, int lineNumber) {
+    public SymbolToken(List<Integer> symbol, int lineNumber) {
         StringBuilder str = new StringBuilder();
         for (int i : symbol) {
             str.append((char)i);
@@ -34,7 +34,7 @@ public class Symbol implements LexToken {
 
     @Override
     public String toString() {
-        return "Symbol{" +
+        return "SymbolToken{" +
                 "symbol='" + symbol + '\'' +
                 '}';
     }
@@ -44,7 +44,7 @@ public class Symbol implements LexToken {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Symbol symbol1 = (Symbol) o;
+        SymbolToken symbol1 = (SymbolToken) o;
 
         if (!symbol.equals(symbol1.symbol)) return false;
 

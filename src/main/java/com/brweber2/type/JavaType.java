@@ -1,6 +1,6 @@
 package com.brweber2.type;
 
-import com.brweber2.lex.Symbol;
+import com.brweber2.ast.Symbol;
 
 /**
  * @author brweber2

@@ -1,7 +1,7 @@
 package com.brweber2.ast;
 
-import com.brweber2.lex.Symbol;
-import com.brweber2.lex.Var;
+import com.brweber2.lex.SymbolToken;
+import com.brweber2.lex.VarToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +32,20 @@ public class Items {
 
     public List getItems() {
         return items;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("[ " );
+        for ( int i = 0; i < items.size(); i++ ) {
+            str.append(items.get(i));
+            if ( i != items.size() -1 )
+            {
+                str.append(",");
+            }
+        }
+        str.append(" ]");
+        return str.toString();
     }
 }
