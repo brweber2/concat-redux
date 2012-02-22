@@ -46,14 +46,15 @@ public class Parser {
         return parseStatement(token,tokens,Token.DOT);
     }
 
+    
 
-    public Statement parseStatement( LexToken token, TokenStream tokens, LexToken terminatingToken )
+    public Statement parseStatement( LexToken token, TokenStream tokens, LexToken ... terminatingTokens )
     {
         Statement statement = new Statement();
         // parse until a period
         // limit to one colon per statement???
         // symbol | var | colon | list | lazy | stack effect
-        while ( token != terminatingToken )
+        while ( !terminates(token,terminatingTokens) )
         {
             if ( token == Token.EOF )
             {
@@ -96,7 +97,18 @@ public class Parser {
             }
             token = tokens.getNextToken();
         }
+        statement.setTerminatingToken(token);
         return statement;
+    }
+
+    private boolean terminates(LexToken token, LexToken[] terminatingTokens) {
+        for (LexToken terminatingToken : terminatingTokens) {
+            if ( terminatingToken == token )
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Block parseLazy( LexToken token, TokenStream tokens )
@@ -127,15 +139,19 @@ public class Parser {
         {
             token = tokens.getNextToken();
         }
-        while ( token != Token.BRACKET_CLOSE )
+        while ( true )
         {
             if ( token == Token.EOF )
             {
                 throw new RuntimeException("Unexpected EOF while reading a items on line " + token.getLineNumber() );
             }
-            Statement statement = parseStatement(token, tokens, Token.COMMA);
+            Statement statement = parseStatement(token, tokens, Token.COMMA, Token.BRACKET_CLOSE );
             for (Object o : statement.getPieces()) {
                 items.add( o );
+            }
+            if ( statement.getTerminatingToken() == Token.BRACKET_CLOSE )
+            {
+                break;
             }
             token = tokens.getNextToken();
         }

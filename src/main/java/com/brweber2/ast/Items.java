@@ -27,7 +27,7 @@ public class Items {
             str.append(items.get(i));
             if ( i != items.size() -1 )
             {
-                str.append(",");
+                str.append(", ");
             }
         }
         str.append(" ]");

@@ -1,5 +1,7 @@
 package com.brweber2.ast;
 
+import com.brweber2.lex.LexToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,10 @@ public class Statement {
     private List pieces = new ArrayList();
     private List tackOntoEnd = new ArrayList();
     private boolean concatAlready = false;
+    private LexToken terminatingToken;
+
+    public Statement() {
+    }
 
     public List getArgs()
     {
@@ -85,5 +91,14 @@ public class Statement {
     public String getName() {
         List list = getPieces();
         return ((Symbol)list.get(list.size()-1)).symbol;
+    }
+
+    public void setTerminatingToken( LexToken token )
+    {
+        terminatingToken = token;
+    }
+
+    public LexToken getTerminatingToken() {
+        return terminatingToken;
     }
 }
