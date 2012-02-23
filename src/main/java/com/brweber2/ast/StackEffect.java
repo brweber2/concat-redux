@@ -135,6 +135,7 @@ public class StackEffect {
             str.append( o );
             str.append( " " );
         }
+        str.append(" )");
         return str.toString();
     }
 }

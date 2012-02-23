@@ -47,9 +47,9 @@ public class DefineTransformer implements StatementTransformer {
         }
         Block block = (Block) blockObject;
 
-        calls.add(TransformAst.transformArg(block));
-        calls.add(TransformAst.transformArg(stackEffect));
-        calls.add(TransformAst.transformArg(name));
+        calls.add(TransformAst.transformPiece(block));
+        calls.add(TransformAst.transformPiece(stackEffect));
+        calls.add(TransformAst.transformPiece(name));
         calls.add(new DefineCall(name, stackEffect, block));
         return calls;
     }

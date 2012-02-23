@@ -12,6 +12,7 @@ import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.call.IdentityCall;
 import com.brweber2.type.JavaType;
+import com.brweber2.vocab.Vocabulary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class TransformAst {
 
     private static final DefineTransformer define = new DefineTransformer();
     private static final LookupTransformer lookup = new LookupTransformer();
+    private static final DoTransformer doCall = new DoTransformer();
 
     private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
     private static final StaticMethodTransformer staticMethod = new StaticMethodTransformer();
@@ -66,6 +68,10 @@ public class TransformAst {
         if ( "define".equals(name))
         {
             return define;
+        }
+        else if ("do".equals(name) )
+        {
+            return doCall;
         }
         else if ( "staticField".equals(name) )
         {
@@ -146,7 +152,12 @@ public class TransformAst {
         }
         else if ( o instanceof Symbol)
         {
-            return new WordCall(((Symbol)o).symbol);
+            Symbol s = (Symbol)o;
+            if (Vocabulary.getCurrent().findWord(s.symbol) != null )
+            {
+                return new WordCall(s.symbol);
+            }
+            return new IdentityCall(new JavaType(Symbol.class),s);
         }
         else if ( o instanceof Var)
         {
