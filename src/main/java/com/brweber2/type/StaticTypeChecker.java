@@ -34,7 +34,7 @@ public class StaticTypeChecker {
             boolean ok = typeFromStack.ok(inputType );
             if ( !ok )
             {
-                throw new RuntimeException("Type check error! " + typeFromStack + " was not cool for " + inputType);
+                throw new RuntimeException("Type check error! " + typeFromStack + " was not cool for " + inputType + " of " + call);
             }
         }
         for (CheckedType outputType : stackEffect.getOutputTypes()) {

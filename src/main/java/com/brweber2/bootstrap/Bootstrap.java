@@ -3,6 +3,7 @@ package com.brweber2.bootstrap;
 import com.brweber2.call.Conditional;
 import com.brweber2.call.FalseLiteral;
 import com.brweber2.call.Get;
+import com.brweber2.call.Infix;
 import com.brweber2.call.Pop;
 import com.brweber2.call.PrintlnCall;
 import com.brweber2.call.Push;
@@ -31,6 +32,7 @@ public class Bootstrap {
         Vocabulary.getCurrent().register("if", new Conditional() );
         Vocabulary.getCurrent().register("true", new TrueLiteral() );
         Vocabulary.getCurrent().register("false", new FalseLiteral() );
+        Vocabulary.getCurrent().register("infix", new Infix() );
         Vocabulary.getCurrent().register("get", new Get() );
         Vocabulary.getCurrent().register("set", new Set() );
         Vocabulary.getCurrent().register("println", new PrintlnCall() );

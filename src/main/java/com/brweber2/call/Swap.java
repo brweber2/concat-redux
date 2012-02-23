@@ -14,8 +14,8 @@ public class Swap implements Call {
     public void invoke(Stack stack) {
         Stack.TypeObject a = stack.pop();
         Stack.TypeObject b = stack.pop();
-        stack.push(b.type,b.object);
         stack.push(a.type,a.object);
+        stack.push(b.type,b.object);
     }
 
     @Override
