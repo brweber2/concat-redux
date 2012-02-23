@@ -2,6 +2,7 @@ package com.brweber2.bootstrap;
 
 import com.brweber2.call.controlflow.Conditional;
 import com.brweber2.call.literal.FalseLiteral;
+import com.brweber2.call.stack.Dup;
 import com.brweber2.call.stack.Get;
 import com.brweber2.call.stack.Infix;
 import com.brweber2.call.stack.Pop;
@@ -29,6 +30,7 @@ public class Bootstrap {
         Vocabulary.getCurrent().register("push", new Push() );
         Vocabulary.getCurrent().register("pop", new Pop() );
         Vocabulary.getCurrent().register("swap", new Swap() );
+        Vocabulary.getCurrent().register("dup", new Dup() );
         Vocabulary.getCurrent().register("if", new Conditional() );
         Vocabulary.getCurrent().register("true", new TrueLiteral() );
         Vocabulary.getCurrent().register("false", new FalseLiteral() );
