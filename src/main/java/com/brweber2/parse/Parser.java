@@ -58,7 +58,8 @@ public class Parser {
         {
             if ( token == Token.EOF )
             {
-                throw new RuntimeException("Unexpected EOF while reading a statement on line " + token.getLineNumber() );
+                break;
+//                throw new RuntimeException("Unexpected EOF while reading a statement on line " + token.getLineNumber() );
             }
             if ( token instanceof SymbolToken)
             {
