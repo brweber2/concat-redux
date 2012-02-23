@@ -24,6 +24,11 @@ public class DoTransformer implements StatementTransformer {
                 calls.add( TransformAst.transformPiece(pieces.get(i)));
             }
         }
+        if ( pieces.isEmpty() )
+        {
+            calls.add(new DoCall(null));
+            return calls;
+        }
         Block block = (Block) pieces.get(pieces.size()-1);
         calls.add(new BlockLiteral(block));
         calls.add( new DoCall(block) );

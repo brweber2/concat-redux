@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DoCall implements Call {
     
-    public final Block block;
+    public Block block;
 
     public DoCall(Block block) {
         this.block = block;
@@ -25,6 +25,14 @@ public class DoCall implements Call {
 
     @Override
     public void invoke(Stack stack) {
+        if ( block == null )
+        {
+            block = (Block) stack.pop().object;
+        }
+        else
+        {
+            stack.pop();
+        }
         for (Call call : block.getInstructions()) {
             call.invoke(stack);
         }
@@ -44,8 +52,11 @@ public class DoCall implements Call {
 
     private List<Symbol> getOuts(Block block) {
         List<CheckedType> typeStack = new ArrayList<CheckedType>();
-        for (Call call : block.getInstructions()) {
-            StaticTypeChecker.checkCall(typeStack,call);
+        if ( block != null )
+        {
+            for (Call call : block.getInstructions()) {
+                StaticTypeChecker.checkCall(typeStack,call);
+            }
         }
         List<Symbol> symbols = new ArrayList<Symbol>();
         for (CheckedType checkedType : typeStack) {
