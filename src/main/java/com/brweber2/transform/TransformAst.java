@@ -81,7 +81,7 @@ public class TransformAst {
         {
             return staticMethod;
         }
-        else if ( "constructor".equals(name) )
+        else if ( "new".equals(name) )
         {
             return constructor;
         }
