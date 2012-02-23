@@ -1,38 +1,36 @@
-package com.brweber2.call;
+package com.brweber2.call.literal;
 
+import com.brweber2.ast.Block;
 import com.brweber2.ast.StackEffect;
-import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
+import com.brweber2.type.CheckedType;
 import com.brweber2.type.JavaType;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class NumberLiteral implements Call {
+public class BlockLiteral implements Call {
     
-    private Number number;
+    private Block block;
+    private CheckedType type;
 
-    public NumberLiteral(Number number) {
-        this.number = number;
+    public BlockLiteral(Block block) {
+        this.block = block;
+        this.type = new JavaType(Block.class);
     }
 
     @Override
     public void invoke(Stack stack) {
-        stack.push(new JavaType(number.getClass()),number);
+        stack.push( type, block );
     }
 
     @Override
     public StackEffect getStackEffect() {
         StackEffect se = new StackEffect();
         se.addArrow();
-        se.add(new Symbol(Number.class.getName()));
+        se.add(type.toSymbol());
         return se;
-    }
-
-    @Override
-    public String toString() {
-        return number.toString();
     }
 }

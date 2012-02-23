@@ -1,4 +1,4 @@
-package com.brweber2.call;
+package com.brweber2.call.word;
 
 import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;

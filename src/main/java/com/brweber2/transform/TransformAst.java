@@ -2,7 +2,8 @@ package com.brweber2.transform;
 
 import com.brweber2.ast.Symbol;
 import com.brweber2.ast.Var;
-import com.brweber2.call.WordCall;
+import com.brweber2.call.word.WordCall;
+import com.brweber2.call.literal.IdentityCall;
 import com.brweber2.run.Call;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.Items;
@@ -10,7 +11,6 @@ import com.brweber2.ast.NumberLiteral;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
-import com.brweber2.call.IdentityCall;
 import com.brweber2.type.JavaType;
 import com.brweber2.vocab.Vocabulary;
 
@@ -108,11 +108,11 @@ public class TransformAst {
         if ( o instanceof NumberLiteral )
         {
             Number nbr = ((NumberLiteral)o).getNbr();
-            return new com.brweber2.call.NumberLiteral(nbr);
+            return new com.brweber2.call.literal.NumberLiteral(nbr);
         }
         else if ( o instanceof StringLiteral )
         {
-            return new com.brweber2.call.StringLiteral(((StringLiteral)o).getStr());
+            return new com.brweber2.call.literal.StringLiteral(((StringLiteral)o).getStr());
         }
         else if ( o instanceof Symbol)
         {
@@ -144,11 +144,11 @@ public class TransformAst {
         if ( o instanceof NumberLiteral )
         {
             Number nbr = ((NumberLiteral)o).getNbr();
-            return new com.brweber2.call.NumberLiteral(nbr);
+            return new com.brweber2.call.literal.NumberLiteral(nbr);
         }
         else if ( o instanceof StringLiteral )
         {
-            return new com.brweber2.call.StringLiteral(((StringLiteral)o).getStr());
+            return new com.brweber2.call.literal.StringLiteral(((StringLiteral)o).getStr());
         }
         else if ( o instanceof Symbol)
         {

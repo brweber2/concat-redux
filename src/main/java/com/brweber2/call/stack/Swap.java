@@ -1,4 +1,4 @@
-package com.brweber2.call;
+package com.brweber2.call.stack;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Symbol;

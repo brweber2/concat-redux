@@ -1,18 +1,18 @@
 package com.brweber2.bootstrap;
 
-import com.brweber2.call.Conditional;
-import com.brweber2.call.FalseLiteral;
-import com.brweber2.call.Get;
-import com.brweber2.call.Infix;
-import com.brweber2.call.Pop;
+import com.brweber2.call.controlflow.Conditional;
+import com.brweber2.call.literal.FalseLiteral;
+import com.brweber2.call.stack.Get;
+import com.brweber2.call.stack.Infix;
+import com.brweber2.call.stack.Pop;
 import com.brweber2.call.PrintlnCall;
-import com.brweber2.call.Push;
-import com.brweber2.call.Set;
-import com.brweber2.call.Swap;
-import com.brweber2.call.TrueLiteral;
-import com.brweber2.call.TypeAlias;
-import com.brweber2.call.Use;
-import com.brweber2.call.VocabCall;
+import com.brweber2.call.stack.Push;
+import com.brweber2.call.stack.Set;
+import com.brweber2.call.stack.Swap;
+import com.brweber2.call.literal.TrueLiteral;
+import com.brweber2.call.word.TypeAlias;
+import com.brweber2.call.word.Use;
+import com.brweber2.call.word.VocabCall;
 import com.brweber2.vocab.Vocabulary;
 
 /**

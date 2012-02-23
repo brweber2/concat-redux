@@ -1,30 +1,26 @@
-package com.brweber2.call;
+package com.brweber2.call.literal;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Symbol;
-import com.brweber2.ast.Var;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
+import com.brweber2.type.JavaType;
 
 /**
  * @author brweber2
  *         Copyright: 2012
  */
-public class Get implements Call {
-
+public class FalseLiteral implements Call {
     @Override
     public void invoke(Stack stack) {
-        Var toGet = (Var) stack.pop().object;
-        Stack.TypeObject typeObject = stack.get(toGet.var);
-        stack.push( typeObject.type,  typeObject.object );
+        stack.push(new JavaType(Boolean.class),Boolean.FALSE);
     }
 
     @Override
     public StackEffect getStackEffect() {
         StackEffect stackEffect = new StackEffect();
-        stackEffect.add(new Symbol(Var.class.getName()));
         stackEffect.addArrow();
-        stackEffect.add(new Symbol(Object.class.getName())); // todo some type info is lost here?
+        stackEffect.add(new Symbol(Boolean.class.getName()));
         return stackEffect;
     }
 }

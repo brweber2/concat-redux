@@ -1,7 +1,7 @@
 package com.brweber2;
 
 import com.brweber2.call.PrintlnCall;
-import com.brweber2.call.StringLiteral;
+import com.brweber2.call.literal.StringLiteral;
 import com.brweber2.run.Call;
 import org.testng.annotations.Test;
 
