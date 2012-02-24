@@ -67,11 +67,11 @@ public class TransformAst {
      * @return The appropriate class for transforming this statement to a call.
      */
     private StatementTransformer getStatementTransformer(Statement statement) {
-        if ( isLiteral(statement) )
+        String name = statement.getName();
+        if ( name == null )
         {
             return literal;
         }
-        String name = statement.getName();
         if ( "define".equals(name))
         {
             return define;
@@ -104,16 +104,6 @@ public class TransformAst {
         {
             return lookup;
         }
-    }
-    
-    private static boolean isLiteral( Statement statement )
-    {
-        if ( statement.getPieces().size() == 1 )
-        {
-            Object inQuestion = statement.getPieces().get(0);
-            return !(inQuestion instanceof Symbol );
-        }
-        return false;
     }
 
     public static Call transformPiece(Object o) {

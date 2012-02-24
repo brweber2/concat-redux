@@ -3,7 +3,7 @@ package com.brweber2.transform;
 import com.brweber2.ast.Statement;
 import com.brweber2.run.Call;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +13,10 @@ import java.util.List;
 public class LiteralTransformer implements StatementTransformer {
     @Override
     public List<Call> transform(Statement statement) {
-        return Arrays.asList(TransformAst.transformPiece(statement.getPieces().get(0)));
+        List<Call> calls = new ArrayList<Call>();
+        for (Object o : statement.getPieces()) {
+            calls.add( TransformAst.transformPiece(o) );
+        }
+        return calls;
     }
 }

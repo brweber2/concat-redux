@@ -34,9 +34,9 @@ public class Conditional implements Call {
     @Override
     public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
+        stackEffect.add(new Symbol(Block.class.getName()));
+        stackEffect.add(new Symbol(Block.class.getName()));
         stackEffect.add(new Symbol(Boolean.class.getName()));
-        stackEffect.add(new Symbol(Block.class.getName()));
-        stackEffect.add(new Symbol(Block.class.getName()));
         stackEffect.addArrow();
         stackEffect.add(new Symbol(Object.class.getName()));
         return stackEffect;

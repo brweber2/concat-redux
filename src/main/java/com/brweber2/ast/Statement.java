@@ -90,7 +90,12 @@ public class Statement {
 
     public String getName() {
         List list = getPieces();
-        return ((Symbol)list.get(list.size()-1)).symbol;
+        Object last = list.get(list.size()-1);
+        if ( last instanceof Symbol )
+        {
+            return ((Symbol)last).symbol;
+        }
+        return null;
     }
 
     public void setTerminatingToken( LexToken token )
