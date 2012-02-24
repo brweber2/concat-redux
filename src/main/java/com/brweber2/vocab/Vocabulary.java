@@ -4,6 +4,7 @@ import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.type.CheckedType;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,12 @@ public class Vocabulary {
 
     public static Call findWord(Symbol vocab, Symbol wordName) {
         return vocabs.get(vocab.symbol).findWord(wordName.symbol);
+    }
+
+    public static boolean isKeyword( String name )
+    {
+        // todo add keywords
+        return Arrays.asList("new", "instanceField", "define", "static-field").contains(name);
     }
 
     // -------------------- END STATIC SECTION ------------------------------------------------------

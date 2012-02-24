@@ -56,7 +56,7 @@ public class ConstructorCall implements Call {
         }
         stackEffect.add(new Symbol(Object.class.getName()));
         stackEffect.addArrow();
-        stackEffect.add(new Symbol(Object.class.getName()));
+        stackEffect.add(new Symbol(c.getDeclaringClass().getName()));
         return stackEffect;
     }
 }

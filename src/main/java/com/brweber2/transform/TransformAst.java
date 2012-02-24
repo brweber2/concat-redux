@@ -12,6 +12,7 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.StaticTypeChecker;
 import com.brweber2.vocab.Vocabulary;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class TransformAst {
         {
             return doCall;
         }
-        else if ( "staticField".equals(name) )
+        else if ( "static-field".equals(name) )
         {
             return staticField;
         }
@@ -153,7 +154,7 @@ public class TransformAst {
         else if ( o instanceof Symbol)
         {
             Symbol s = (Symbol)o;
-            if (Vocabulary.getCurrent().findWord(s.symbol) != null )
+            if (Vocabulary.getCurrent().findWord(s.symbol) != null || Vocabulary.isKeyword(s.symbol))
             {
                 return new WordCall(s.symbol);
             }

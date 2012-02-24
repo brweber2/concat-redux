@@ -1,9 +1,11 @@
 package com.brweber2.call.java;
 
 import com.brweber2.ast.StackEffect;
+import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
+import com.brweber2.type.JavaType;
 
 import java.lang.reflect.Field;
 
@@ -14,31 +16,32 @@ import java.lang.reflect.Field;
 public class FieldAccess implements Call {
 
     protected Field f;
-    protected CheckedType type;
+    protected boolean staticField;
 
     // static field
-    public FieldAccess(Field f) {
+    public FieldAccess(Field f, boolean staticField) {
         this.f = f;
-    }
-
-    // instance field
-    public FieldAccess(CheckedType instanceType, Field f) {
-        this.f = f;
+        this.staticField = staticField;
     }
 
     @Override
     public void invoke(Stack stack) {
-        if (getStackEffect().getInputTypes().isEmpty()) {
+        if (staticField) {
             // static field
             try {
-                stack.push(type, f.get(null));
+                stack.pop();
+                stack.pop();
+                stack.push(new JavaType(f.getType()), f.get(null));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get value for static field " + f);
             }
         } else {
             // instance field
             try {
-                stack.push(type, f.get(stack.pop()));
+                stack.pop();
+                stack.pop();
+                Object instance = stack.pop().object;
+                stack.push(new JavaType(f.getType()), f.get(instance));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to get value for field " + f);
             }
@@ -48,7 +51,14 @@ public class FieldAccess implements Call {
     @Override
     public StackEffect getStackEffect() {
         StackEffect stackEffect = new StackEffect();
+        if ( !staticField)
+        {
+            stackEffect.add(new Symbol(f.getDeclaringClass().getName()));
+        }
+        stackEffect.add(new Symbol(Symbol.class.getName()));
+        stackEffect.add(new Symbol(Symbol.class.getName()));
         stackEffect.addArrow();
-        return stackEffect; // todo wrong, fix me
+        stackEffect.add(new Symbol(f.getType().getName()));
+        return stackEffect;
     }
 }

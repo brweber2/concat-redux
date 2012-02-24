@@ -30,7 +30,8 @@ public class StaticTypeChecker {
     {
         StackEffect stackEffect = call.getStackEffect();
         for (CheckedType inputType : stackEffect.getInputTypes()) {
-            CheckedType typeFromStack = typeStack.remove(typeStack.size()-1);
+            CheckedType typeFromStack = typeStack.remove(typeStack.size() - 1);
+            System.out.println("checking " + typeFromStack + " and " + inputType);
             boolean ok = typeFromStack.ok(inputType );
             if ( !ok )
             {
