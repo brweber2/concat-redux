@@ -52,4 +52,25 @@ public class StaticTypeChecker {
             checkCall(typeStack,call);
         }
     }
+
+    public static boolean checkStackEffects(StackEffect stackEffect1, StackEffect stackEffect2) {
+        return checkTypeLists( stackEffect1.getInputTypes(), stackEffect2.getInputTypes() ) && checkTypeLists( stackEffect1.getOutputTypes(), stackEffect2.getOutputTypes() );
+    }
+    
+    private static boolean checkTypeLists( List<CheckedType> list1, List<CheckedType> list2 )
+    {
+        if ( list1.size() == list2.size() )
+        {
+            int i = 0;
+            for (CheckedType checkedType : list1) {
+                if ( !checkedType.ok(list2.get(i)))
+                {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        }
+        return false;
+    }
 }

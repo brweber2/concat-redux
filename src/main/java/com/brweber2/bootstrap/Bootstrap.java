@@ -1,6 +1,7 @@
 package com.brweber2.bootstrap;
 
 import com.brweber2.call.controlflow.Conditional;
+import com.brweber2.call.controlflow.DoBlock;
 import com.brweber2.call.java.ConstructorCall;
 import com.brweber2.call.literal.FalseLiteral;
 import com.brweber2.call.stack.Dup;
@@ -26,7 +27,7 @@ public class Bootstrap {
     public static void bootstrap()
     {
         Vocabulary.setVocab("kernel");
-        Vocabulary.getCurrent().register("vocab", new VocabCall() );
+        Vocabulary.getCurrent().register("vocab", new VocabCall());
         Vocabulary.getCurrent().register("alias", new TypeAlias() );
         Vocabulary.getCurrent().register("use", new Use() );
         Vocabulary.getCurrent().register("push", new Push() );
@@ -40,6 +41,7 @@ public class Bootstrap {
         Vocabulary.getCurrent().register("get", new Get() );
         Vocabulary.getCurrent().register("set", new Set() );
         Vocabulary.getCurrent().register("println", new PrintlnCall() );
+        Vocabulary.getCurrent().register("do", new DoBlock() );
         Vocabulary.setVocab("default");
         Vocabulary.getCurrent().alias("int", new JavaType(Integer.TYPE));
         // todo add other primitive types (and other type aliases in general)

@@ -31,11 +31,6 @@ public class JavaType implements CheckedType {
     }
 
     @Override
-    public Class getJavaClass() {
-        return type;
-    }
-
-    @Override
     public String toString() {
         return "JavaType{" +
                 "type=" + type.getName() +

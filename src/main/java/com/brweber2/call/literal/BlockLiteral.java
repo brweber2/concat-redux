@@ -4,6 +4,7 @@ import com.brweber2.ast.Block;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
+import com.brweber2.type.BlockType;
 import com.brweber2.type.CheckedType;
 import com.brweber2.type.JavaType;
 import com.brweber2.type.TypeStack;
@@ -19,7 +20,7 @@ public class BlockLiteral implements Call {
 
     public BlockLiteral(Block block) {
         this.block = block;
-        this.type = new JavaType(Block.class);
+        this.type = new BlockType(block);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class BlockLiteral implements Call {
     public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect se = new StackEffect();
         se.addArrow();
-        se.add(type.toSymbol());
+        se.add( type );
         return se;
     }
 }

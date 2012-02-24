@@ -10,5 +10,4 @@ public interface CheckedType {
 
     boolean ok( CheckedType type );
     Symbol toSymbol();
-    Class getJavaClass();
 }

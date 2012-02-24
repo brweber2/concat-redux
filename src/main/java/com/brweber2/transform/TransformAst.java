@@ -27,7 +27,6 @@ public class TransformAst {
 
     private static final DefineTransformer define = new DefineTransformer();
     private static final LookupTransformer lookup = new LookupTransformer();
-    private static final DoTransformer doCall = new DoTransformer();
     private static final LiteralTransformer literal = new LiteralTransformer();
 
     private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
@@ -76,10 +75,6 @@ public class TransformAst {
         {
             return define;
         }
-        else if ("do".equals(name) )
-        {
-            return doCall;
-        }
         else if ( "static-field".equals(name) )
         {
             return staticField;
@@ -122,7 +117,7 @@ public class TransformAst {
         else if ( o instanceof Symbol)
         {
             Symbol s = (Symbol)o;
-            if (Vocabulary.getCurrent().findWord(s.symbol) != null || Vocabulary.isKeyword(s.symbol))
+            if (Vocabulary.getCurrent().findWord(s.symbol) != null)
             {
                 return new WordCall(s.symbol);
             }

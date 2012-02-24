@@ -24,6 +24,17 @@ public class StackEffect {
         return arrowCount == 1;
     }
 
+    public void add(CheckedType type) {
+        if ( arrowCount == 0 )
+        {
+            beforeArrow.add( type );
+        }
+        else
+        {
+            afterArrow.add(type);
+        }
+    }
+    
     public void add(Symbol token) {
         if ( arrowCount == 0 )
         {
@@ -57,7 +68,11 @@ public class StackEffect {
         }
         List<CheckedType> types = new ArrayList<CheckedType>();
         for (Object o : beforeArrow) {
-            if ( o instanceof Symbol)
+            if ( o instanceof CheckedType )
+            {
+                types.add( (CheckedType) o );
+            }
+            else if ( o instanceof Symbol)
             {
                 types.add(TypeSystem.findType(((Symbol)o).symbol));
             }
@@ -80,7 +95,11 @@ public class StackEffect {
         }
         List<CheckedType> types = new ArrayList<CheckedType>();
         for (Object o : afterArrow) {
-            if ( o instanceof Symbol)
+            if ( o instanceof CheckedType )
+            {
+                types.add( (CheckedType) o );
+            }
+            else if ( o instanceof Symbol)
             {
                 types.add(TypeSystem.findType(((Symbol)o).symbol));
             }

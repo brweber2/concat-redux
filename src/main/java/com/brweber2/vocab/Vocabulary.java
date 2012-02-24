@@ -43,12 +43,6 @@ public class Vocabulary {
         return vocabs.get(vocab.symbol).findWord(wordName.symbol);
     }
 
-    public static boolean isKeyword( String name )
-    {
-        // todo add keywords
-        return Arrays.asList("new", "instanceField", "define", "static-field").contains(name);
-    }
-
     // -------------------- END STATIC SECTION ------------------------------------------------------
     
     private Map<String,Call> words = new HashMap<String,Call>();
