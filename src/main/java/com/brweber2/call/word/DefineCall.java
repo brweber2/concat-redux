@@ -6,6 +6,7 @@ import com.brweber2.run.Invoke;
 import com.brweber2.run.Stack;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.StackEffect;
+import com.brweber2.type.TypeStack;
 import com.brweber2.vocab.Vocabulary;
 
 /**
@@ -26,7 +27,7 @@ public class DefineCall implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
         stackEffect.add(new Symbol(Symbol.class.getName()));
         stackEffect.add(new Symbol(StackEffect.class.getName()));

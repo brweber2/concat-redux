@@ -6,6 +6,7 @@ import com.brweber2.run.Stack;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.TypeStack;
 import com.brweber2.vocab.Vocabulary;
 
 /**
@@ -37,8 +38,8 @@ public class WordCall implements Call {
 
 
     @Override
-    public StackEffect getStackEffect() {
-        return getCall().getStackEffect();
+    public StackEffect getStackEffect(TypeStack typeStack) {
+        return getCall().getStackEffect(typeStack);
     }
 
     @Override

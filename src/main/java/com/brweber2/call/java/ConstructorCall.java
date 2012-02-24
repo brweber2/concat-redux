@@ -6,6 +6,7 @@ import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.TypeStack;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +50,7 @@ public class ConstructorCall implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
         for (Class aClass : c.getParameterTypes()) {
             stackEffect.add(new Symbol(aClass.getName()));

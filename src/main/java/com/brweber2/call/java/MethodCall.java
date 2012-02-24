@@ -4,6 +4,7 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
+import com.brweber2.type.TypeStack;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,7 +36,7 @@ public class MethodCall implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
         stackEffect.addArrow();
         return stackEffect; // todo fix this whole class

@@ -2,6 +2,7 @@ package com.brweber2.run;
 
 import com.brweber2.ast.StackEffect;
 import com.brweber2.type.CheckedType;
+import com.brweber2.type.TypeStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class Invoke implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         return stackEffect;
     }
 

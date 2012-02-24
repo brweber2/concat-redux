@@ -7,6 +7,7 @@ import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
 import com.brweber2.type.StaticTypeChecker;
+import com.brweber2.type.TypeStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class DoCall implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
         stackEffect.add(new Symbol(Block.class.getName()));
         stackEffect.addArrow();
@@ -51,7 +52,7 @@ public class DoCall implements Call {
     }
 
     private List<Symbol> getOuts(Block block) {
-        List<CheckedType> typeStack = new ArrayList<CheckedType>();
+        TypeStack typeStack = new TypeStack();
         if ( block != null )
         {
             for (Call call : block.getInstructions()) {
@@ -59,7 +60,7 @@ public class DoCall implements Call {
             }
         }
         List<Symbol> symbols = new ArrayList<Symbol>();
-        for (CheckedType checkedType : typeStack) {
+        for (CheckedType checkedType : typeStack.all() ) {
             symbols.add(checkedType.toSymbol());
         }
         return symbols;

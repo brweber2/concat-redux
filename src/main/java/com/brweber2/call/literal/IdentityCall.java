@@ -5,6 +5,7 @@ import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.type.CheckedType;
+import com.brweber2.type.TypeStack;
 
 /**
  * @author brweber2
@@ -26,7 +27,7 @@ public class IdentityCall implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect se = new StackEffect();
         se.addArrow();
         se.add(type.toSymbol());

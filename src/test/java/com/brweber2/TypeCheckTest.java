@@ -8,6 +8,7 @@ import com.brweber2.call.literal.StringLiteral;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.StaticTypeChecker;
+import com.brweber2.type.TypeStack;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,7 +38,7 @@ public class TypeCheckTest {
             }
 
             @Override
-            public StackEffect getStackEffect() {
+            public StackEffect getStackEffect(TypeStack typeStack) {
                 StackEffect stackEffect = new StackEffect();
                 stackEffect.add(new Symbol(String.class.getName()));
                 stackEffect.addArrow();

@@ -5,6 +5,7 @@ import com.brweber2.vocab.Vocabulary;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class ReadFileAndRunItTest {
     @Test
     public void readFileAndRunIt() throws IOException {
         Vocabulary.getCurrent().register("println", new PrintlnCall() );
-        String source = "\n\n:define wow ( java.lang.String ->  ) { :println . } .\n" +
+        String source = "\n\n:define wow ( java.lang.String ->  ) { :println } .\n" +
                         ":wow \"Hello\" .";
         File file = File.createTempFile("readFileAndRunIt", UUID.randomUUID().toString());
         FileWriter writer = new FileWriter(file);

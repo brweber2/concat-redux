@@ -4,6 +4,7 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
+import com.brweber2.type.TypeStack;
 
 /**
  * @author brweber2
@@ -19,13 +20,15 @@ public class Swap implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect se = new StackEffect();
-        se.add(new Symbol(Object.class.getName()));
-        se.add(new Symbol(Object.class.getName()));
+        Symbol a = typeStack.peek(-1).toSymbol();
+        Symbol b = typeStack.peek(-2).toSymbol();
+        se.add(a);
+        se.add(b);
         se.addArrow();
-        se.add(new Symbol(Object.class.getName()));
-        se.add(new Symbol(Object.class.getName()));
+        se.add(b);
+        se.add(a);
         return se;
     }
 }

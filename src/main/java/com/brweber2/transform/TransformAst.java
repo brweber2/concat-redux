@@ -2,6 +2,7 @@ package com.brweber2.transform;
 
 import com.brweber2.ast.Symbol;
 import com.brweber2.ast.Var;
+import com.brweber2.call.literal.BlockLiteral;
 import com.brweber2.call.word.WordCall;
 import com.brweber2.call.literal.IdentityCall;
 import com.brweber2.run.Call;
@@ -108,12 +109,15 @@ public class TransformAst {
     public static Call transformArg(Object o) {
         if ( o instanceof NumberLiteral )
         {
-            Number nbr = ((NumberLiteral)o).getNbr();
-            return new com.brweber2.call.literal.NumberLiteral(nbr);
+            return new com.brweber2.call.literal.NumberLiteral(((NumberLiteral)o).getNbr());
         }
         else if ( o instanceof StringLiteral )
         {
             return new com.brweber2.call.literal.StringLiteral(((StringLiteral)o).getStr());
+        }
+        else if ( o instanceof Block)
+        {
+            return new BlockLiteral((Block)o);
         }
         else if ( o instanceof Symbol)
         {
@@ -122,10 +126,6 @@ public class TransformAst {
         else if ( o instanceof Var)
         {
             return new IdentityCall(new JavaType(Var.class),o);
-        }
-        else if ( o instanceof Block)
-        {
-            return new IdentityCall(new JavaType(Block.class),o);
         }
         else if ( o instanceof Items )
         {
@@ -144,12 +144,15 @@ public class TransformAst {
     public static Call transformPiece(Object o) {
         if ( o instanceof NumberLiteral )
         {
-            Number nbr = ((NumberLiteral)o).getNbr();
-            return new com.brweber2.call.literal.NumberLiteral(nbr);
+            return new com.brweber2.call.literal.NumberLiteral(((NumberLiteral)o).getNbr());
         }
         else if ( o instanceof StringLiteral )
         {
             return new com.brweber2.call.literal.StringLiteral(((StringLiteral)o).getStr());
+        }
+        else if ( o instanceof Block)
+        {
+            return new BlockLiteral((Block)o);
         }
         else if ( o instanceof Symbol)
         {
@@ -163,10 +166,6 @@ public class TransformAst {
         else if ( o instanceof Var)
         {
             return new IdentityCall(new JavaType(Var.class),o);
-        }
-        else if ( o instanceof Block)
-        {
-            return new IdentityCall(new JavaType(Block.class),o);
         }
         else if ( o instanceof Items )
         {

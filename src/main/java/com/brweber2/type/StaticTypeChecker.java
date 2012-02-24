@@ -20,17 +20,17 @@ public class StaticTypeChecker {
     
     public static void check( Call ... calls )
     {
-        List<CheckedType> typeStack = new ArrayList<CheckedType>();
+        TypeStack typeStack = new TypeStack();
         for (Call call : calls) {
             checkCall( typeStack, call );
         }
     }
 
-    public static void checkCall( List<CheckedType> typeStack, Call call )
+    public static void checkCall( TypeStack typeStack, Call call )
     {
-        StackEffect stackEffect = call.getStackEffect();
+        StackEffect stackEffect = call.getStackEffect(typeStack);
         for (CheckedType inputType : stackEffect.getInputTypes()) {
-            CheckedType typeFromStack = typeStack.remove(typeStack.size() - 1);
+            CheckedType typeFromStack = typeStack.pop();
             System.out.println("checking " + typeFromStack + " and " + inputType);
             boolean ok = typeFromStack.ok(inputType );
             if ( !ok )
@@ -44,7 +44,7 @@ public class StaticTypeChecker {
     }
 
     public static void check(Stack stack, List<Call> calls) {
-        List<CheckedType> typeStack = new ArrayList<CheckedType>();
+        TypeStack typeStack = new TypeStack();
         for (Stack.TypeObject o : stack.peekAll()) {
             typeStack.add(o.type);
         }

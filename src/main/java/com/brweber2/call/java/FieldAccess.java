@@ -6,6 +6,7 @@ import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.TypeStack;
 
 import java.lang.reflect.Field;
 
@@ -49,7 +50,7 @@ public class FieldAccess implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
         if ( !staticField)
         {

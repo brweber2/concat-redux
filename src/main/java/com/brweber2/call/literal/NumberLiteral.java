@@ -5,6 +5,7 @@ import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.TypeStack;
 
 /**
  * @author brweber2
@@ -24,10 +25,10 @@ public class NumberLiteral implements Call {
     }
 
     @Override
-    public StackEffect getStackEffect() {
+    public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect se = new StackEffect();
         se.addArrow();
-        se.add(new Symbol(Number.class.getName()));
+        se.add(new Symbol(number.getClass().getName()));
         return se;
     }
 
