@@ -28,6 +28,7 @@ public class TransformAst {
     private static final DefineTransformer define = new DefineTransformer();
     private static final LookupTransformer lookup = new LookupTransformer();
     private static final DoTransformer doCall = new DoTransformer();
+    private static final LiteralTransformer literal = new LiteralTransformer();
 
     private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
     private static final StaticMethodTransformer staticMethod = new StaticMethodTransformer();
@@ -66,6 +67,10 @@ public class TransformAst {
      * @return The appropriate class for transforming this statement to a call.
      */
     private StatementTransformer getStatementTransformer(Statement statement) {
+        if ( isLiteral(statement) )
+        {
+            return literal;
+        }
         String name = statement.getName();
         if ( "define".equals(name))
         {
@@ -100,45 +105,15 @@ public class TransformAst {
             return lookup;
         }
     }
-
-    /**
-     * @deprecated ???
-     * @param o
-     * @return
-     */
-    public static Call transformArg(Object o) {
-        if ( o instanceof NumberLiteral )
+    
+    private static boolean isLiteral( Statement statement )
+    {
+        if ( statement.getPieces().size() == 1 )
         {
-            return new com.brweber2.call.literal.NumberLiteral(((NumberLiteral)o).getNbr());
+            Object inQuestion = statement.getPieces().get(0);
+            return !(inQuestion instanceof Symbol );
         }
-        else if ( o instanceof StringLiteral )
-        {
-            return new com.brweber2.call.literal.StringLiteral(((StringLiteral)o).getStr());
-        }
-        else if ( o instanceof Block)
-        {
-            return new BlockLiteral((Block)o);
-        }
-        else if ( o instanceof Symbol)
-        {
-            return new IdentityCall(new JavaType(Symbol.class),o);
-        }
-        else if ( o instanceof Var)
-        {
-            return new IdentityCall(new JavaType(Var.class),o);
-        }
-        else if ( o instanceof Items )
-        {
-            return new IdentityCall(new JavaType(Items.class),o);
-        }
-        else if ( o instanceof StackEffect )
-        {
-            return new IdentityCall(new JavaType(StackEffect.class),o);
-        }
-        else
-        {
-            throw new RuntimeException("Unknown ast type " + o );
-        }
+        return false;
     }
 
     public static Call transformPiece(Object o) {
