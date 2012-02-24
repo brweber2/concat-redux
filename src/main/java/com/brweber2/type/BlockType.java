@@ -23,6 +23,11 @@ public class BlockType implements CheckedType {
             BlockType other = (BlockType) type;
             return StaticTypeChecker.checkStackEffects( block.getStackEffect(), other.block.getStackEffect() );
         }
+        else if ( type instanceof JavaType )
+        {
+            JavaType javaType = (JavaType) type;
+            return javaType.ok(new JavaType(block.getClass()));
+        }
         return false;
     }
 

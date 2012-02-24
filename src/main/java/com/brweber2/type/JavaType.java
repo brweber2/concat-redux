@@ -1,5 +1,6 @@
 package com.brweber2.type;
 
+import com.brweber2.ast.Block;
 import com.brweber2.ast.Symbol;
 
 /**
@@ -21,6 +22,11 @@ public class JavaType implements CheckedType {
         {
             JavaType otherType = (JavaType) type;
             flag = otherType.type.isAssignableFrom(this.type);
+        }
+        else if ( type instanceof BlockType )
+        {
+            BlockType bt = (BlockType) type;
+            return bt.ok(this);
         }
         return flag;
     }
