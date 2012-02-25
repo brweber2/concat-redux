@@ -30,9 +30,9 @@ public class StaticMethodCall implements Call {
             Method method = getMethod(className,methodName,stackEffect);
             Class[] parameterTypes = method.getParameterTypes();
             Object[] args = new Object[parameterTypes.length];
-            for ( int i = parameterTypes.length -1; i >= 0; i++ )
+            for ( int i = parameterTypes.length -1; i >= 0; i-- )
             {
-                args[i] = stack.pop();
+                args[i] = stack.pop().object;
             }
             Object result = method.invoke(null,args);
             stack.push(new JavaType(method.getReturnType()),result);

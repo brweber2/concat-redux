@@ -7,6 +7,7 @@ import com.brweber2.type.CheckedType;
 import com.brweber2.type.TypeSystem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -67,7 +68,8 @@ public class StackEffect {
             throw new RuntimeException("Invalid stack effect " + this);
         }
         List<CheckedType> types = new ArrayList<CheckedType>();
-        for (Object o : beforeArrow) {
+        for (int i = beforeArrow.size()-1; i >= 0; i-- ) {
+            Object o = beforeArrow.get(i);
             if ( o instanceof CheckedType )
             {
                 types.add( (CheckedType) o );

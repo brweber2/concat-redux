@@ -27,7 +27,7 @@ public class NewCall implements Call {
             Constructor constructor = getConstructorFromStackEffect(stackEffect);
             Class[] parameterTypes = constructor.getParameterTypes();
             Object[] args = new Object[parameterTypes.length];
-            for ( int i = parameterTypes.length -1; i >= 0; i++ )
+            for ( int i = parameterTypes.length -1; i >= 0; i-- )
             {
                 args[i] = stack.pop();
             }
@@ -69,7 +69,6 @@ public class NewCall implements Call {
             stackEffect.add(inputType);
         }
         stackEffect.add(seType);
-        stackEffect.add(new Symbol(Number.class.getName()));
         stackEffect.addArrow();
         if ( seType.getStackEffect().getOutputTypes().size() != 1 )
         {

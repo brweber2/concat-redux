@@ -30,11 +30,12 @@ public class InstanceMethodCall implements Call {
             Method method = getMethod(instance.getClass().getName(),methodName,stackEffect);
             Class[] parameterTypes = method.getParameterTypes();
             Object[] args = new Object[parameterTypes.length];
-            for ( int i = parameterTypes.length -1; i >= 0; i++ )
+            for ( int i = parameterTypes.length -1; i >= 0; i-- )
             {
                 args[i] = stack.pop();
             }
-            Object result = method.invoke(null,args);
+            System.out.println("about to call instance method");
+            Object result = method.invoke(instance,args);
             stack.push(new JavaType(method.getReturnType()),result);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Unable to invoke an instance method.",e);
@@ -75,7 +76,7 @@ public class InstanceMethodCall implements Call {
         }
         stackEffect.add(seType); // stack effect
         stackEffect.add(typeStack.peek(-2)); // instance
-        stackEffect.add(new Symbol(Symbol.class.getName())); // method name
+        stackEffect.add(new JavaType(Symbol.class)); // method name
         stackEffect.addArrow();
         if ( seType.getStackEffect().getOutputTypes().size() != 1 )
         {
