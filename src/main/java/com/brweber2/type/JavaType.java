@@ -1,6 +1,5 @@
 package com.brweber2.type;
 
-import com.brweber2.ast.Block;
 import com.brweber2.ast.Symbol;
 
 /**
@@ -27,6 +26,11 @@ public class JavaType implements CheckedType {
         {
             BlockType bt = (BlockType) type;
             return bt.ok(this);
+        }
+        else if ( type instanceof StackEffectType )
+        {
+            StackEffectType se = (StackEffectType) type;
+            return se.ok(this);
         }
         return flag;
     }

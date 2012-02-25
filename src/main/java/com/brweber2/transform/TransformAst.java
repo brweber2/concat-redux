@@ -3,6 +3,7 @@ package com.brweber2.transform;
 import com.brweber2.ast.Symbol;
 import com.brweber2.ast.Var;
 import com.brweber2.call.literal.BlockLiteral;
+import com.brweber2.call.literal.StackEffectLiteral;
 import com.brweber2.call.word.WordCall;
 import com.brweber2.call.literal.IdentityCall;
 import com.brweber2.run.Call;
@@ -13,6 +14,7 @@ import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
 import com.brweber2.ast.StringLiteral;
 import com.brweber2.type.JavaType;
+import com.brweber2.type.StackEffectType;
 import com.brweber2.type.StaticTypeChecker;
 import com.brweber2.vocab.Vocabulary;
 
@@ -29,13 +31,6 @@ public class TransformAst {
     private static final LookupTransformer lookup = new LookupTransformer();
     private static final LiteralTransformer literal = new LiteralTransformer();
 
-    private static final StaticFieldTransformer staticField = new StaticFieldTransformer();
-    private static final StaticMethodTransformer staticMethod = new StaticMethodTransformer();
-    private static final ConstructorTransformer constructor = new ConstructorTransformer();
-    private static final InstanceFieldTransformer instanceField = new InstanceFieldTransformer();
-    private static final InstanceMethodTransformer instanceMethod = new InstanceMethodTransformer();
-
-    
     public static List<Call> transform( List<Statement> statements )
     {
         TransformAst transformAst = new TransformAst();
@@ -75,26 +70,6 @@ public class TransformAst {
         {
             return define;
         }
-        else if ( "static-field".equals(name) )
-        {
-            return staticField;
-        }
-        else if ( "staticMethod".equals(name) )
-        {
-            return staticMethod;
-        }
-        else if ( "new".equals(name) )
-        {
-            return constructor;
-        }
-        else if ( "instanceField".equals(name) )
-        {
-            return instanceField;
-        }
-        else if ( "instanceMethod".equals(name) )
-        {
-            return instanceMethod;
-        }
         else 
         {
             return lookup;
@@ -133,7 +108,7 @@ public class TransformAst {
         }
         else if ( o instanceof StackEffect )
         {
-            return new IdentityCall(new JavaType(StackEffect.class),o);
+            return new StackEffectLiteral((StackEffect)o);
         }
         else
         {
