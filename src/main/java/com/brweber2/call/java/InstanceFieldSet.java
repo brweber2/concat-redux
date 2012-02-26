@@ -5,7 +5,6 @@ import com.brweber2.ast.Symbol;
 import com.brweber2.run.Call;
 import com.brweber2.run.Stack;
 import com.brweber2.type.CheckedType;
-import com.brweber2.type.JavaType;
 import com.brweber2.type.StackEffectType;
 import com.brweber2.type.TypeStack;
 
@@ -16,51 +15,52 @@ import java.util.List;
  * @author brweber2
  *         Copyright: 2012
  */
-public class InstanceFieldGet implements Call {
+public class InstanceFieldSet implements Call {
     
-    // instance field-name ( instance-type -> field-type ) sfg
-
+    // <value> <instance> <field-name> ( Instance-type ->  ) ifs
+    
     @Override
     public void invoke(Stack stack) {
         try {
             StackEffect se = (StackEffect) stack.pop().object;
             Symbol fieldName = (Symbol) stack.pop().object;
             Object instance = stack.pop().object;
+            Object value = stack.pop().object;
             Symbol className = (Symbol) se.getInputTypes().get(0);
 
             Field field = Class.forName(className.symbol).getField(fieldName.symbol);
-            stack.push( new JavaType( field.getType() ), field.get(instance) );
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Unable to access a static field.",e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to access a static field.",e);
+            field.set(instance,value);
         } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Unable to access a static field.",e);
+            throw new RuntimeException("Unable to set instance field.",e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Unable to set instance field.",e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Unable to set instance field.",e);
         }
     }
 
     @Override
     public StackEffect getStackEffect(TypeStack typeStack) {
-        StackEffectType seType = (StackEffectType) typeStack.peek(-1);
+        StackEffect stackEffect = new StackEffect();
 
+        StackEffectType seType = (StackEffectType) typeStack.peek(-1);
         List<CheckedType> inputTypes = seType.getStackEffect().getInputTypes();
         if ( inputTypes.size() != 1 )
         {
-            throw new RuntimeException("A instance field get must have the class type in the stack effect.");
+            throw new RuntimeException("A instance field set must have the class type in the stack effect.");
         }
 
         List<CheckedType> outputTypes = seType.getStackEffect().getOutputTypes();
-        if ( outputTypes.size() != 1 )
+        if ( !outputTypes.isEmpty() )
         {
-            throw new RuntimeException("A instance field get must have one return type.");
+            throw new RuntimeException("A instance field set must not have a return type.");
         }
-
-        StackEffect stackEffect = new StackEffect();
+        
+        stackEffect.add(typeStack.peek(-4));
         stackEffect.add(inputTypes.get(0));
-        stackEffect.add(new Symbol(Symbol.class.getName())); // field-name
+        stackEffect.add(new Symbol(Symbol.class.getName()));
         stackEffect.add(seType);
         stackEffect.addArrow();
-        stackEffect.add(outputTypes.get(0));
         return stackEffect;
     }
 }
