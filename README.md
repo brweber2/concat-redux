@@ -2,6 +2,11 @@ The initial work on a concatenative language that runs on the JVM.  It does stat
 
 There is still much work to be done.
 
+Documentation
+-------------
+* Add documentation.
+* Add examples.
+
 Mostly just work at this point
 ------------------------------
 
@@ -32,3 +37,4 @@ Maybe some day
 * Define classes.
 * Word re-definitions (if signature matches or type check again)?
 * Macro words?
+* Add logic programming words (integrate with logic-redux?).
