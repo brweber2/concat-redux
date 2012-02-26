@@ -34,9 +34,33 @@ public class NumberToken implements LexToken {
         }
         else
         {
-            this.number = new BigInteger(str.toString());
+            BigInteger bi = new BigInteger(str.toString());
+            if ( isInt(bi) )
+            {
+                this.number = bi.intValue();
+            }
+            else if ( isLong(bi) )
+            {
+                this.number = bi.longValue();
+            }
+            else
+            {
+                this.number = new BigInteger(str.toString());
+            }
         }
         this.lineNumber = lineNumber;
+    }
+    
+    private boolean isInt( BigInteger bi )
+    {
+        return ( bi.compareTo(new BigInteger("" + Integer.MIN_VALUE)) >= 0
+             && bi.compareTo(new BigInteger("" + Integer.MAX_VALUE)) <= 0 );
+    }
+
+    private boolean isLong( BigInteger bi )
+    {
+        return ( bi.compareTo(new BigInteger("" + Long.MIN_VALUE)) >= 0
+                && bi.compareTo(new BigInteger("" + Long.MAX_VALUE)) <= 0 );
     }
 
     @Override

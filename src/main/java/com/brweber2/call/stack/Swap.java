@@ -24,11 +24,11 @@ public class Swap implements Call {
         StackEffect se = new StackEffect();
         Symbol a = typeStack.peek(-1).toSymbol();
         Symbol b = typeStack.peek(-2).toSymbol();
-        se.add(a);
         se.add(b);
+        se.add(a);
         se.addArrow();
-        se.add(b);
         se.add(a);
+        se.add(b);
         return se;
     }
 }

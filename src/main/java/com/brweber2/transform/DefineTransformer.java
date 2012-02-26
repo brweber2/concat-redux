@@ -6,6 +6,8 @@ import com.brweber2.run.Call;
 import com.brweber2.ast.Block;
 import com.brweber2.ast.StackEffect;
 import com.brweber2.ast.Statement;
+import com.brweber2.run.Invoke;
+import com.brweber2.vocab.Vocabulary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +49,13 @@ public class DefineTransformer implements StatementTransformer {
         }
         Block block = (Block) blockObject;
 
-        calls.add(TransformAst.transformPiece(block));
-        calls.add(TransformAst.transformPiece(stackEffect));
         calls.add(TransformAst.transformPiece(name));
+        calls.add(TransformAst.transformPiece(stackEffect));
+        calls.add(TransformAst.transformPiece(block));
         calls.add(new DefineCall(name, stackEffect, block));
+
+//        Vocabulary.getCurrent().register(name.symbol,new Invoke(stackEffect, block.getInstructions()));
+
         return calls;
     }
 
