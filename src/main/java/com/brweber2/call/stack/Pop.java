@@ -20,8 +20,8 @@ public class Pop implements Call
     @Override
     public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
-        stackEffect.addArrow();
         stackEffect.add(typeStack.peek(-1).toSymbol());
+        stackEffect.addArrow();
         return stackEffect;
     }
 }

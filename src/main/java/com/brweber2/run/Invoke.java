@@ -41,10 +41,14 @@ public class Invoke implements Call {
         {
             throw new RuntimeException("Wrong number of outputs!");
         }
-        int i = stack.size();
+        int i = stack.size()-1;
         for (Object output : stack.popAll()) {
-            CheckedType type = stackEffect.getOutputTypes().get(i-1);
-            thisStack.push(type, output);
+            List<CheckedType> outputTypes = stackEffect.getOutputTypes();
+            if ( i < outputTypes.size() )
+            {
+                CheckedType type = outputTypes.get(i);
+                thisStack.push(type, output);
+            }
             i--;
         }
     }

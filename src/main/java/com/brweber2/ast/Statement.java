@@ -90,10 +90,13 @@ public class Statement {
 
     public String getName() {
         List list = getPieces();
-        Object last = list.get(list.size()-1);
-        if ( last instanceof Symbol )
+        if ( !list.isEmpty() )
         {
-            return ((Symbol)last).symbol;
+            Object last = list.get(list.size()-1);
+            if ( last instanceof Symbol )
+            {
+                return ((Symbol)last).symbol;
+            }
         }
         return null;
     }
