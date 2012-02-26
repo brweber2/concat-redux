@@ -32,7 +32,7 @@ public class InstanceMethodCall implements Call {
             Object[] args = new Object[parameterTypes.length];
             for ( int i = parameterTypes.length -1; i >= 0; i-- )
             {
-                args[i] = stack.pop();
+                args[i] = stack.pop().object;
             }
             System.out.println("about to call instance method");
             Object result = method.invoke(instance,args);
