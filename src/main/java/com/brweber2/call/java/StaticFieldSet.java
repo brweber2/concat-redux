@@ -24,9 +24,9 @@ public class StaticFieldSet implements Call {
             StackEffect se = (StackEffect) stack.pop().object;
             Symbol fieldName = (Symbol) stack.pop().object;
             Object value = stack.pop().object;
-            Symbol className = (Symbol) se.getInputTypes().get(0);
+            CheckedType className = se.getInputTypes().get(0);
 
-            Field field = Class.forName(className.symbol).getField(fieldName.symbol);
+            Field field = Class.forName(className.toSymbol().symbol).getField(fieldName.symbol);
             field.set(null,value);
         } catch (NoSuchFieldException e) {
             throw new RuntimeException("Unable to set instance field.",e);
@@ -55,7 +55,7 @@ public class StaticFieldSet implements Call {
         }
 
         stackEffect.add(typeStack.peek(-3));
-        stackEffect.add(inputTypes.get(0));
+        stackEffect.add(new Symbol(Symbol.class.getName()));
         stackEffect.add(seType);
         stackEffect.addArrow();
         return stackEffect;
