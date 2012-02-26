@@ -25,7 +25,7 @@ public class StaticFieldGet implements Call {
         try {
             StackEffect se = (StackEffect) stack.pop().object;
             Symbol fieldName = (Symbol) stack.pop().object;
-            Symbol className = (Symbol) se.getInputTypes().get(0);
+            Symbol className = se.getInputTypes().get(0).toSymbol();
 
             Field field = Class.forName(className.symbol).getField(fieldName.symbol);
             stack.push( new JavaType( field.getType() ), field.get(null) );

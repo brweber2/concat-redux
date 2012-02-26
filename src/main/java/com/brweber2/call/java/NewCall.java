@@ -29,7 +29,7 @@ public class NewCall implements Call {
             Object[] args = new Object[parameterTypes.length];
             for ( int i = parameterTypes.length -1; i >= 0; i-- )
             {
-                args[i] = stack.pop();
+                args[i] = stack.pop().object;
             }
             Object instance = constructor.newInstance(args);
             stack.push(new JavaType(instance.getClass()),instance);

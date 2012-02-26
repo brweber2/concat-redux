@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class InstanceFieldGet implements Call {
     
-    // instance field-name ( instance-type -> field-type ) sfg
+    // instance field-name ( instance-type -> field-type ) ifg
 
     @Override
     public void invoke(Stack stack) {
@@ -26,7 +26,7 @@ public class InstanceFieldGet implements Call {
             StackEffect se = (StackEffect) stack.pop().object;
             Symbol fieldName = (Symbol) stack.pop().object;
             Object instance = stack.pop().object;
-            Symbol className = (Symbol) se.getInputTypes().get(0);
+            Symbol className = se.getInputTypes().get(0).toSymbol();
 
             Field field = Class.forName(className.symbol).getField(fieldName.symbol);
             stack.push( new JavaType( field.getType() ), field.get(instance) );
