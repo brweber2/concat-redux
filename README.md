@@ -11,8 +11,6 @@ Mostly just work at this point
 ------------------------------
 
 * Make 'vocab' a compile time word.
-* Make 'get' a compile time word.
-* Make 'set' a compile time word.
 * Generic lists/iteration.
 * Words for viewing the state of the system.
 * Add aliases for primitives.

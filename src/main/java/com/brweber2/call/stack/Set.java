@@ -13,6 +13,8 @@ import com.brweber2.type.TypeStack;
  */
 public class Set implements Call {
 
+    // "foo" @bar set
+
     @Override
     public void invoke(Stack stack) {
         Var name = (Var) stack.pop().object;
@@ -23,7 +25,7 @@ public class Set implements Call {
     @Override
     public StackEffect getStackEffect(TypeStack typeStack) {
         StackEffect stackEffect = new StackEffect();
-        stackEffect.add(typeStack.peek(-1).toSymbol());
+        stackEffect.add(typeStack.peek(-2).toSymbol());
         stackEffect.add(new Symbol(Var.class.getName()));
         stackEffect.addArrow();
         return stackEffect;
